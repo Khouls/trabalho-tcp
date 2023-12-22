@@ -1,6 +1,9 @@
 package seres;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
+
+import gerenciador.Rolagem;
 
 public abstract class Ser {
     private String nome;
@@ -8,7 +11,7 @@ public abstract class Ser {
     private int defesa;
 
     protected ArrayList<Pericia> pericias;
-    protected int[] atributos;
+    protected EnumMap<Atributo, Integer> atributos;
 
     public static final int NUM_ATRIBUTOS = 5;
 
@@ -16,16 +19,27 @@ public abstract class Ser {
         this.nome = nome;
     };
 
-    public ArrayList<Integer> fazerTeste(String nomePericia) {
-        // TODO: implementar
-        return new ArrayList<>();
+    private Pericia encontrarPericia(String nomePericia) {
+        for (Pericia pericia : this.pericias) {
+            if (pericia.getNome().equals(nomePericia)) {
+                return pericia;
+            }
+        }
+        // Perícia não encontrada
+        return null;
+    }
+
+    public Rolagem fazerTeste(String nomePericia) {
+        Pericia periciaTeste = this.encontrarPericia(nomePericia);
+        int qtDados = this.atributos.get(periciaTeste.getAtributoBase());
+        int modificador = periciaTeste.getModificador();
+
+        return Rolagem.rolarTeste(qtDados, modificador);
 
     }
 
-    public ArrayList<Integer> fazerTeste(Atributo atributo) {
-         // TODO: implementar
-        return new ArrayList<>();
-
+    public Rolagem fazerTeste(Atributo atributo) {
+        return Rolagem.rolarTeste(this.atributos.get(atributo), 0);
     }
 
     public String getNome() {
@@ -52,8 +66,8 @@ public abstract class Ser {
         return this.pericias;
     }
 
-    public int[] getAtributos() {
-        return this.atributos;
+    public EnumMap<Atributo, Integer> getAtributos() {
+        return new EnumMap<Atributo, Integer>(this.atributos);
     }    
 
 }

@@ -2,6 +2,7 @@ package gerenciador;
 
 import seres.Ser;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GerenciadorSessao {
 
@@ -13,17 +14,7 @@ public class GerenciadorSessao {
         this.seres = new ArrayList<Ser>();
         this.anotacoes = "";
     }
-
-    public static ArrayList<Integer> rolarDados(int numFaces, int qtDados, int modificador) {
-        // TODO: implementar
-        return new ArrayList<>();
-    }
-
-    public static ArrayList<Integer> rolarDados(int qtDados, int modificador) {
-        // TODO: implementar
-        return new ArrayList<>();
-    }
-
+    
     public void adicionaSer(Ser ser) {
         this.seres.add(ser);
     }
