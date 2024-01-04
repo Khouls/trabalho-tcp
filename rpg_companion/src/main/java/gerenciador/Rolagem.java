@@ -7,7 +7,7 @@ public class Rolagem {
     private int resultadoFinal;
     private ArrayList<Integer> resultados;
 
-    // Consultar o professor
+    // *Consultar o professor
     private Rolagem() {
         this.resultados = new ArrayList<Integer>();
         this.resultadoFinal = 0;

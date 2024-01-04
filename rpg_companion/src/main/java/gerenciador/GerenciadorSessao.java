@@ -31,7 +31,7 @@ public class GerenciadorSessao {
     }
 
     public ArrayList<Ser> getSeres() {
-        return this.seres;
+        return new ArrayList<Ser>(this.seres);
     }    
     
 }
