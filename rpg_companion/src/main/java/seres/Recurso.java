@@ -3,25 +3,38 @@ package seres;
 public class Recurso {
     private int valorAtual;
     private int valorMaximo;
-    private int modificador;
+    private int modificadorMaximo;
 
     public Recurso() {
+        this.valorMaximo = 0;
+        this.modificadorMaximo = 0;
+
+        this.zera();
 
     }
 
     public Recurso(int max, int modificador) {
         this.valorMaximo = max;
-        this.modificador = modificador;
+        this.modificadorMaximo = modificador;
+
+        this.enche();
     }
 
     public void variaAtual(int variacao) {
+        this.valorAtual += variacao;
+        // Impdede de ficar abaixo de 0
+        if (this.valorAtual < 0) {
+            this.valorAtual = 0;
+        }
 
     }
 
     public void zera() {
+        this.valorAtual = 0;
     }
 
     public void enche() {
+        this.valorAtual = this.valorMaximo + this.modificadorMaximo;
 
     }
     
@@ -41,12 +54,12 @@ public class Recurso {
         this.valorMaximo = valorMaximo;
     }
 
-    public int getModificador() {
-        return this.modificador;
+    public int getModificadorMaximo() {
+        return this.modificadorMaximo;
     }
 
-    public void setModificador(int modificador) {
-        this.modificador = modificador;
+    public void setModificadorMaximo(int modificador) {
+        this.modificadorMaximo = modificador;
     }
 
 }
