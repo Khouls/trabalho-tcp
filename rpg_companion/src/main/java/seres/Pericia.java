@@ -1,54 +1,42 @@
 package seres;
 
-public class Pericia {
-    private String nome;
-    private String grauTreinamento;
-    private int modificador;
-    private Atributo atributoBase;
+public enum Pericia {
+    Acrobacia(Atributo.Agilidade),
+    Adestramento(Atributo.Presença),
+    Artes(Atributo.Presença),
+    Atletismo(Atributo.Força),
+    Atualidades(Atributo.Intelecto),
+    Ciências(Atributo.Intelecto),
+    Crime(Atributo.Agilidade),
+    Diplomacia(Atributo.Presença),
+    Enganação(Atributo.Presença),
+    Fortitude(Atributo.Vigor),
+    Furtividade(Atributo.Agilidade),
+    Iniciativa(Atributo.Agilidade),
+    Intimidação(Atributo.Agilidade),
+    Intuição(Atributo.Intelecto),
+    Investigação(Atributo.Intelecto),
+    Luta(Atributo.Força),
+    Medicina(Atributo.Intelecto),
+    Ocultismo(Atributo.Intelecto),
+    Percepção(Atributo.Presença),
+    Pilotagem(Atributo.Agilidade),
+    Pontaria(Atributo.Agilidade),
+    Profissão(Atributo.Intelecto),
+    Reflexos(Atributo.Agilidade),
+    Religião(Atributo.Presença),
+    Sobrevivência(Atributo.Intelecto),
+    Tática(Atributo.Intelecto),
+    Tecnologia(Atributo.Intelecto),
+    Vontade(Atributo.Presença);
 
-    protected enum PericiasValidas {
-        Acrobacia
+    private final Atributo atributoBase;
 
-
-    };
-
-
-    public Pericia(String nome, Atributo atributoBase) {
-        this.nome = nome;
+    private Pericia(Atributo atributoBase) {
         this.atributoBase = atributoBase;
     }
 
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getGrauTreinamento() {
-        return this.grauTreinamento;
-    }
-
-    public void setGrauTreinamento(String grauTreinamento) {
-        this.grauTreinamento = grauTreinamento;
-    }
-
-    public int getModificador() {
-        return this.modificador;
-    }
-
-    public void setModificador(int modificador) {
-        this.modificador = modificador;
-    }
-
-    public Atributo getAtributoBase() {
+    public Atributo atributoBase() {
         return this.atributoBase;
     }
-
-    public void setAtributoBase(Atributo atributoBase) {
-        this.atributoBase = atributoBase;
-    }
-
-
 }

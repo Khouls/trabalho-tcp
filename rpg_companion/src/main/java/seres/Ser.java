@@ -11,7 +11,7 @@ public abstract class Ser {
     protected Recurso pontosVida;
     private int defesa;
 
-    protected ArrayList<Pericia> pericias;
+    protected EnumMap<Pericia, Integer> pericias;
     protected EnumMap<Atributo, Integer> atributos;
 
     protected static String historicoRolagens = "";
@@ -21,7 +21,7 @@ public abstract class Ser {
     public Ser(String nome) {
         this.nome = nome;
         this.defesa = 0;
-        this.pericias = new ArrayList<Pericia>();
+        this.pericias = new EnumMap<>(Pericia.class);
         this.atributos = new EnumMap<>(Atributo.class);
 
         // Inicializar todos os atributos
@@ -36,15 +36,6 @@ public abstract class Ser {
 
     protected abstract void inicializarPericias();
 
-    private Pericia encontrarPericia(String nomePericia) throws InvalidKeyException {
-        for (Pericia pericia : this.pericias) {
-            if (pericia.getNome().equals(nomePericia)) {
-                return pericia;
-            }
-        }
-        // Se não foi achada
-        throw new InvalidKeyException("Pericia não encontrada!");
-    }
 
     private void adicionaAoHistorico(String nomeRolado, int modificador, Rolagem rolagem) {
         // [Personagem|Pericia] : 20 [10, 20, 4] (+2)
@@ -54,13 +45,12 @@ public abstract class Ser {
 
     }
 
-    public Rolagem fazerTeste(String nomePericia) throws InvalidKeyException {
-        Pericia periciaTeste = this.encontrarPericia(nomePericia);
-        int qtDados = this.atributos.get(periciaTeste.getAtributoBase());
-        int modificador = periciaTeste.getModificador();
+    public Rolagem fazerTeste(Pericia pericia) throws InvalidKeyException {
+        int qtDados = this.atributos.get(pericia.atributoBase());
+        int modificador = pericias.get(pericia);
 
         Rolagem rolagem = Rolagem.rolarTeste(qtDados, modificador);
-        adicionaAoHistorico(nomePericia, modificador, rolagem);
+        adicionaAoHistorico(pericia.name(), modificador, rolagem);
 
         return rolagem;
 
@@ -102,8 +92,8 @@ public abstract class Ser {
         this.defesa = defesa;
     }
 
-    public ArrayList<Pericia> getPericias() {
-        return this.pericias;
+    public EnumMap<Pericia, Integer> getPericias() {
+        return new EnumMap<>(this.pericias);
     }
 
     public EnumMap<Atributo, Integer> getAtributos() {

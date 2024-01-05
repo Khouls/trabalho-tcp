@@ -33,7 +33,6 @@ public class Personagem extends Ser {
 
 
     }
-
     
     private int calculaRecursoNoNivel(int valorInicial, int valorPorNivel, int modificadorDeAtributo) {
         return valorInicial + modificadorDeAtributo + ((valorPorNivel + modificadorDeAtributo)* ((this.nivelExposicao / Classe.EXPOSICAO_POR_NIVEL) - 1));
