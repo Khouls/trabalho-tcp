@@ -12,6 +12,13 @@ public class Ameaca extends Ser {
         super(nome);
     }
 
+    
+    @Override
+    protected void inicializarPericias() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'inicializarPericias'");
+    }
+
     public void adicionaHabilidade(Habilidade habilidade) {
 
     }
@@ -31,7 +38,5 @@ public class Ameaca extends Ser {
     public void setValorDificuldade(int valorDificuldade) {
         this.valorDificuldade = valorDificuldade;
     }
-
-
 
 }

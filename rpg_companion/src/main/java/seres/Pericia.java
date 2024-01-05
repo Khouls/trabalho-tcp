@@ -6,6 +6,12 @@ public class Pericia {
     private int modificador;
     private Atributo atributoBase;
 
+    protected enum PericiasValidas {
+        Acrobacia
+
+
+    };
+
 
     public Pericia(String nome, Atributo atributoBase) {
         this.nome = nome;

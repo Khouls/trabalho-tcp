@@ -29,7 +29,12 @@ public abstract class Ser {
             this.atributos.put(atributo, VALOR_INICIAL_ATRIBUTOS);
         }
 
+        // Inicializar as pericias
+        inicializarPericias();
+
     };
+
+    protected abstract void inicializarPericias();
 
     private Pericia encontrarPericia(String nomePericia) throws InvalidKeyException {
         for (Pericia pericia : this.pericias) {
@@ -63,7 +68,7 @@ public abstract class Ser {
 
     public Rolagem fazerTeste(Atributo atributo) {
         Rolagem rolagem = Rolagem.rolarTeste(this.atributos.get(atributo), 0);
-        adicionaAoHistorico(atributo.toString(), 0, rolagem);
+        adicionaAoHistorico(atributo.name(), 0, rolagem);
 
         return rolagem;
         
