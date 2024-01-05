@@ -6,3 +6,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 rpg_companion/target/
 
 rpg_companion/.vscode/
+rpg_companion/target/classes/gerenciador/GerenciadorSessao.class
+rpg_companion/target/classes/seres/Atributo.class
+rpg_companion/target/classes/seres/Ser.class
+rpg_companion/target/classes/seres/personagens/Classe.class
+rpg_companion/target/classes/seres/personagens/Elemento.class
+rpg_companion/target/classes/seres/personagens/Personagem.class

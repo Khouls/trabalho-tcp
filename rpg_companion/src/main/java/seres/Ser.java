@@ -69,6 +69,14 @@ public abstract class Ser {
         
     }
 
+    public Rolagem rodarDados(int numFaces, int qtDados,  int modificador) {
+        Rolagem rolagem = Rolagem.rolarDados(numFaces, qtDados, modificador);
+        adicionaAoHistorico(String.format("%dd%d+%d", qtDados, numFaces, modificador), 0, rolagem);
+
+        return rolagem;
+        
+    }
+
     public String getNome() {
         return this.nome;
     }
