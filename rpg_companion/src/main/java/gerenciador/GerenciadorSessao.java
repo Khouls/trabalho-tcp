@@ -7,13 +7,12 @@ public class GerenciadorSessao {
 
     private ArrayList<Ser> seres;
     private String anotacoes;
-    public static String historicoRolagens;
-    
+        
     public GerenciadorSessao() {
         this.seres = new ArrayList<Ser>();
         this.anotacoes = "";
     }
-    
+
     public void adicionaSer(Ser ser) {
         this.seres.add(ser);
     }

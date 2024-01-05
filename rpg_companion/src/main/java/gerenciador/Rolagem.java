@@ -93,6 +93,4 @@ public class Rolagem {
     public int getResultadoFinal() {
         return this.resultadoFinal;
     }
-
-
 }
