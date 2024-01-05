@@ -1,5 +1,6 @@
 package seres;
 
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -7,39 +8,65 @@ import gerenciador.Rolagem;
 
 public abstract class Ser {
     private String nome;
-    private Recurso pontosVida;
+    protected Recurso pontosVida;
     private int defesa;
 
     protected ArrayList<Pericia> pericias;
     protected EnumMap<Atributo, Integer> atributos;
 
-    public static final int NUM_ATRIBUTOS = 5;
+    protected static String historicoRolagens = "";
+
+    private final int VALOR_INICIAL_ATRIBUTOS = 0;
 
     public Ser(String nome) {
         this.nome = nome;
+        this.defesa = 0;
+        this.pericias = new ArrayList<Pericia>();
+        this.atributos = new EnumMap<>(Atributo.class);
+
+        // Inicializar todos os atributos
+        for (Atributo atributo : Atributo.values()) {
+            this.atributos.put(atributo, VALOR_INICIAL_ATRIBUTOS);
+        }
+
     };
 
-    private Pericia encontrarPericia(String nomePericia) {
+    private Pericia encontrarPericia(String nomePericia) throws InvalidKeyException {
         for (Pericia pericia : this.pericias) {
             if (pericia.getNome().equals(nomePericia)) {
                 return pericia;
             }
         }
-        // Perícia não encontrada
-        return null;
+        // Se não foi achada
+        throw new InvalidKeyException("Pericia não encontrada!");
     }
 
-    public Rolagem fazerTeste(String nomePericia) {
+    private void adicionaAoHistorico(String nomeRolado, int modificador, Rolagem rolagem) {
+        // [Personagem|Pericia] : 20 [10, 20, 4] (+2)
+        historicoRolagens += String.format("[%s|%s]", this.nome, nomeRolado);
+        historicoRolagens += String.format(" : %d %s", rolagem.getResultadoFinal(), rolagem.getResultados());
+        historicoRolagens += String.format("(%s%d)\n", modificador >= 0 ? "+" : "", modificador);
+
+    }
+
+    public Rolagem fazerTeste(String nomePericia) throws InvalidKeyException {
         Pericia periciaTeste = this.encontrarPericia(nomePericia);
         int qtDados = this.atributos.get(periciaTeste.getAtributoBase());
         int modificador = periciaTeste.getModificador();
 
-        return Rolagem.rolarTeste(qtDados, modificador);
+        Rolagem rolagem = Rolagem.rolarTeste(qtDados, modificador);
+        adicionaAoHistorico(nomePericia, modificador, rolagem);
+
+        return rolagem;
 
     }
 
     public Rolagem fazerTeste(Atributo atributo) {
-        return Rolagem.rolarTeste(this.atributos.get(atributo), 0);
+        Rolagem rolagem = Rolagem.rolarTeste(this.atributos.get(atributo), 0);
+        adicionaAoHistorico(atributo.toString(), 0, rolagem);
+
+        return rolagem;
+        
     }
 
     public String getNome() {
