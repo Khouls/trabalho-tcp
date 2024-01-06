@@ -1,6 +1,8 @@
 package seres.ameacas;
 
 import java.util.ArrayList;
+
+import seres.Pericia;
 import seres.Ser;
 
 public class Ameaca extends Ser {
@@ -10,21 +12,29 @@ public class Ameaca extends Ser {
 
     public Ameaca(String nome) {
         super(nome);
+        this.valorDificuldade = 0;
     }
-
     
     @Override
     protected void inicializarPericias() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inicializarPericias'");
+        // Ameaças apenas possuem Percepção, Iniciativa, Fortitude, Reflexos e Vontade
+        this.pericias.put(Pericia.Percepção, 0);
+        this.pericias.put(Pericia.Iniciativa, 0);
+        this.pericias.put(Pericia.Fortitude, 0);
+        this.pericias.put(Pericia.Reflexos, 0);
+        this.pericias.put(Pericia.Vontade, 0);
     }
 
     public void adicionaHabilidade(Habilidade habilidade) {
+        this.habilidades.add(habilidade);
+    }
 
+    public void adicionaHabilidade(Habilidade habilidade, int index) {
+        this.habilidades.add(index, habilidade);
     }
 
     public void removeHabilidade(int index) {
-
+        this.habilidades.remove(index);
     }
 
     public ArrayList<Habilidade> getHabilidades() {

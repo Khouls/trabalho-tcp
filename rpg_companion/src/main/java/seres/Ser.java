@@ -36,7 +36,6 @@ public abstract class Ser {
 
     protected abstract void inicializarPericias();
 
-
     private void adicionaAoHistorico(String nomeRolado, int modificador, Rolagem rolagem) {
         // [Personagem|Pericia] : 20 [10, 20, 4] (+2)
         historicoRolagens += String.format("[%s|%s]", this.nome, nomeRolado);

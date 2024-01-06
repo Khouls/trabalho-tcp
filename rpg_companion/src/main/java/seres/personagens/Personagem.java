@@ -2,6 +2,7 @@ package seres.personagens;
 
 import seres.Ser;
 import seres.Atributo;
+import seres.Pericia;
 import seres.Recurso;
 import java.util.ArrayList;
 
@@ -30,8 +31,9 @@ public class Personagem extends Ser {
 
     @Override
     protected void inicializarPericias() {
-
-
+        for (Pericia pericia : Pericia.values()) {
+            this.pericias.put(pericia, 0);
+        }
     }
     
     private int calculaRecursoNoNivel(int valorInicial, int valorPorNivel, int modificadorDeAtributo) {
@@ -60,13 +62,20 @@ public class Personagem extends Ser {
         this.inventario.add(item);
     }
 
+    public void adicionaItem(Item item, int index) {
+        this.inventario.add(index, item);
+    }
+
     public void removeItem(int index) {
         this.inventario.remove(index);
     }
 
     public void adicionaPoder(Poder poder) {
         this.poderes.add(poder);
+    }
 
+    public void adicionaPoder(Poder poder, int index) {
+        this.poderes.add(index, poder);
     }
 
     public void removePoder(int index) {
