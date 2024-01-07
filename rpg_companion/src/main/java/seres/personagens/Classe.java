@@ -47,7 +47,7 @@ public enum Classe {
     }
 
     public int sanidadeInicial() {
-        return this.sanidadeInicial();
+        return this.sanidadeInicial;
     }
 
     public int sanidadeNex() {
