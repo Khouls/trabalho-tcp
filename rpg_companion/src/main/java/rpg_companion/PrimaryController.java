@@ -2,19 +2,40 @@ package rpg_companion;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import java.net.URL;
+import java.security.InvalidKeyException;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import seres.Atributo;
+import seres.Pericia;
+import seres.personagens.Classe;
 import seres.personagens.Personagem;
+import seres.Ser;
 
 import java.io.IOException;
 
-public class PrimaryController {
+import gerenciador.GerenciadorSessao;
 
+public class PrimaryController implements Initializable {
+
+    private GerenciadorSessao gerenciador = new GerenciadorSessao();
+
+    @FXML @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Personagem JohnParanormal = new Personagem("John Paranormal", Classe.Ocultista);
+        JohnParanormal.setAtributo(Atributo.Intelecto, 20);
+        JohnParanormal.setPericia(Pericia.Ocultismo, 69);
+        JohnParanormal.setPericia(Pericia.Ciências, -10);
+        gerenciador.adicionaSer(JohnParanormal);
+    }
 
     @FXML
     private HBox personagensBox; // HBox para conter os botões dos personagens
@@ -31,8 +52,22 @@ public class PrimaryController {
     private int contadorPersonagens = 1; // Contador para identificar cada personagem
 
     @FXML
+    private TextArea textarea;
+
+    @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
+    }
+    
+    public void testeBotao() {
+        try {
+            this.gerenciador.getSeres().get(0).fazerTeste(Pericia.Ocultismo);
+            this.gerenciador.getSeres().get(0).fazerTeste(Pericia.Ciências);
+        } catch (InvalidKeyException exception) {
+            System.out.println("Pericia Invalida");
+        }
+
+        textarea.setText(Ser.getHistoricoRolagens());
     }
 
     @FXML

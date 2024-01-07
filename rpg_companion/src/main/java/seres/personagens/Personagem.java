@@ -17,6 +17,7 @@ public class Personagem extends Ser {
 
     public Personagem(String nome, Classe classe) {
         super(nome);
+        this.classe = classe;
         this.setDefesa(Classe.DEFESA_BASE + this.atributos.get(Atributo.Agilidade));
         this.nivelExposicao = Classe.NEX_INICIAL;
         this.pontosVida = new Recurso();

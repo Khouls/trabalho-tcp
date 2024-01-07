@@ -32,5 +32,9 @@ public class GerenciadorSessao {
     public ArrayList<Ser> getSeres() {
         return new ArrayList<Ser>(this.seres);
     }
+
+    public Ser getSer(int index) {
+        return this.seres.get(index);
+    }
     
 }

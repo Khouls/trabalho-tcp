@@ -28,7 +28,7 @@ public class TesteRolagem {
     }
 
     @Test
-    // Testa rolagens com todos os modificadores na faixa especificada
+    // Testa rolagens com todos os modificadores na faixa especificada, rodando 2d20 e pegando o maior
     void testeRolarD20Vantagem() {
         final int modificadorFinal = 100;
         final int modificadorInicial = -100;
@@ -43,7 +43,7 @@ public class TesteRolagem {
             // Garante que o resultado está na faixa esperada
             assertTrue(dentroAcima && dentroAbaixo, "Fora do Intervalo: " + (resultadoFinal - modificador));
 
-            //             
+            // 
         }
     }
 

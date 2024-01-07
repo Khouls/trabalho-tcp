@@ -40,12 +40,15 @@ public abstract class Ser {
         // [Personagem|Pericia] : 20 [10, 20, 4] (+2)
         historicoRolagens += String.format("[%s|%s]", this.nome, nomeRolado);
         historicoRolagens += String.format(" : %d %s", rolagem.getResultadoFinal(), rolagem.getResultados());
-        historicoRolagens += String.format("(%s%d)\n", modificador >= 0 ? "+" : "", modificador);
+        historicoRolagens += String.format("(%d%s%d)\n", rolagem.getResultadoFinal()-modificador, modificador >= 0 ? "+" : "", modificador);
 
     }
 
     public Rolagem fazerTeste(Pericia pericia) throws InvalidKeyException {
+        System.out.println("Atributo:" + pericia.atributoBase());
+
         int qtDados = this.atributos.get(pericia.atributoBase());
+        System.out.println(this.atributos);
         int modificador = pericias.get(pericia);
 
         Rolagem rolagem = Rolagem.rolarTeste(qtDados, modificador);
@@ -96,6 +99,18 @@ public abstract class Ser {
 
     public EnumMap<Atributo, Integer> getAtributos() {
         return new EnumMap<Atributo, Integer>(this.atributos);
-    }    
+    }
+
+    public void setAtributo(Atributo atributo, int valor) {
+        this.atributos.replace(atributo, valor);
+    }
+
+    public void setPericia(Pericia pericia, int modificador) {
+        this.pericias.replace(pericia, modificador);
+    }
+
+    public static String getHistoricoRolagens() {
+        return historicoRolagens;
+    }
 
 }
