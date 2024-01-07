@@ -22,7 +22,8 @@
             "name": "App",
             "request": "launch",
             "mainClass": "rpg_companion.App",
-            "projectName": "rpg_companion"
+            "projectName": "rpg_companion",
+            "vmArgs": "--module-path \"C:/Users/dudat/OneDrive/Documentos/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }
