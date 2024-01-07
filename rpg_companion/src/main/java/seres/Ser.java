@@ -68,7 +68,6 @@ public abstract class Ser {
         adicionaAoHistorico(String.format("%dd%d+%d", qtDados, numFaces, modificador), 0, rolagem);
 
         return rolagem;
-        
     }
 
     public String getNome() {
