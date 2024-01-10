@@ -51,8 +51,6 @@ public class PrimaryController implements Initializable {
 
     private int contadorPersonagens = 1; // Contador para identificar cada personagem
 
-    @FXML
-    private TextArea textarea;
 
     @FXML
     private void switchToSecondary() throws IOException {
@@ -65,9 +63,7 @@ public class PrimaryController implements Initializable {
             this.gerenciador.getSeres().get(0).fazerTeste(Pericia.Ciências);
         } catch (InvalidKeyException exception) {
             System.out.println("Pericia Invalida");
-        }
-
-        textarea.setText(Ser.getHistoricoRolagens());
+        }        
     }
 
     @FXML

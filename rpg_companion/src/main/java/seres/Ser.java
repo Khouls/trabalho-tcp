@@ -45,10 +45,7 @@ public abstract class Ser {
     }
 
     public Rolagem fazerTeste(Pericia pericia) throws InvalidKeyException {
-        System.out.println("Atributo:" + pericia.atributoBase());
-
         int qtDados = this.atributos.get(pericia.atributoBase());
-        System.out.println(this.atributos);
         int modificador = pericias.get(pericia);
 
         Rolagem rolagem = Rolagem.rolarTeste(qtDados, modificador);
