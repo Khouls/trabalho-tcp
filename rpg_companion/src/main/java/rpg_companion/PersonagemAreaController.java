@@ -14,10 +14,12 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -59,12 +61,14 @@ public class PersonagemAreaController extends Pane implements Initializable {
         container.setPrefHeight(ALTURA_CONTAINER);
         container.setPrefWidth(200.0);
         container.setSpacing(10.0);
+        container.getStylesheets().add("file:stylesheet.css");
         container.getStyleClass().add("background");
+        container.getStyleClass().add("text-foreground");
         container.setAlignment(Pos.CENTER_LEFT);
 
         Text nome = new Text(pericia.toString());
-        nome.getStyleClass().add("text-foreground");
         nome.setFont(new Font(14.0));
+        nome.setFill(Color.valueOf("#f0f0f0"));
 
         Spinner<Integer> spinnerModificador = new Spinner<Integer>(-100, 100, this.ser.getPericias().get(pericia));
         spinnerModificador.setEditable(true);
@@ -74,9 +78,11 @@ public class PersonagemAreaController extends Pane implements Initializable {
             this.ser.setPericia(pericia, Integer.parseInt(newValue));
         });
 
-        Button botaoFazerRolagem = new Button("Rodar!");
-        botaoFazerRolagem.setPrefHeight(25.0);
-        botaoFazerRolagem.setPrefWidth(68.0);
+        Button botaoFazerRolagem = new Button();
+        botaoFazerRolagem.setPrefHeight(34.0);
+        botaoFazerRolagem.setPrefWidth(32.0);
+        botaoFazerRolagem.getStylesheets().add("file:stylesheet.css");
+        botaoFazerRolagem.getStyleClass().add("background");
         botaoFazerRolagem.setOnMouseClicked((arg) -> {
             try {
                 this.ser.fazerTeste(pericia);
@@ -85,6 +91,11 @@ public class PersonagemAreaController extends Pane implements Initializable {
                 System.out.println("Pericia Inválida:" + pericia);
             }
         });
+        Image imagemDado = new Image("file:./src/main/resources/icons/d20.png");
+        ImageView iconeBotao = new ImageView(imagemDado);
+        iconeBotao.setFitHeight(36.0);
+        iconeBotao.setPreserveRatio(true);
+        botaoFazerRolagem.setGraphic(iconeBotao);
         
         container.getChildren().addAll(nome, spinnerModificador, botaoFazerRolagem);
 
