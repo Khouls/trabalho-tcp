@@ -32,6 +32,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import seres.Atributo;
 import seres.Pericia;
+import seres.Recurso;
 import seres.Ser;
 import seres.personagens.Classe;
 import seres.personagens.Personagem;
@@ -135,63 +136,61 @@ public class PersonagemAreaController extends Pane implements Initializable {
             this.atualizarSpinnersRecursos();
         });
 
-        // Setar Vida
-        this.spinnerVidaAtual.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
+  
+        // Setar Recursos
+        conectarSpinnersRecurso(spinnerVidaAtual, spinnerVidaMax, barraVida, this.personagem.getPontosVida());
 
-        this.spinnerVidaAtual.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            this.personagem.getPontosVida().setValorAtual(Integer.parseInt(newValue));
-            this.barraVida.setProgress(this.personagem.getPontosVida().getProporçao());
-        });
-
-        this.spinnerVidaMax.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
-
-        this.spinnerVidaMax.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            this.personagem.getPontosVida().setValorMaximo(Integer.parseInt(newValue));
-            this.barraVida.setProgress(this.personagem.getPontosVida().getProporçao());
-        });
-
-        this.barraVida.setProgress(this.personagem.getPontosVida().getProporçao());
-
-        // Setar Sanidade
-        this.spinnerSanidadeAtual.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
-
-        this.spinnerSanidadeAtual.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            this.personagem.getPontosSanidade().setValorAtual(Integer.parseInt(newValue));
-            this.barraSanidade.setProgress(this.personagem.getPontosSanidade().getProporçao());
-        });
-
-        this.spinnerSanidadeMax.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
-
-        this.spinnerSanidadeMax.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            this.personagem.getPontosSanidade().setValorMaximo(Integer.parseInt(newValue));
-            this.barraSanidade.setProgress(this.personagem.getPontosSanidade().getProporçao());
-        });
-
-        this.barraSanidade.setProgress(this.personagem.getPontosSanidade().getProporçao());
-
-        // Setar Esforco
-        this.spinnerEsforçoAtual.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
-
-        this.spinnerEsforçoAtual.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            this.personagem.getPontosEsforço().setValorAtual(Integer.parseInt(newValue));
-            this.barraEsforço.setProgress(this.personagem.getPontosEsforço().getProporçao());
-        });
-
-        this.spinnerEsforçoMax.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
-
-        this.spinnerEsforçoMax.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            this.personagem.getPontosEsforço().setValorMaximo(Integer.parseInt(newValue));
-            this.barraEsforço.setProgress(this.personagem.getPontosEsforço().getProporçao());
-        });
-
-        this.barraEsforço.setProgress(this.personagem.getPontosEsforço().getProporçao());
+        conectarSpinnersRecurso(spinnerSanidadeAtual, spinnerSanidadeMax, barraSanidade, this.personagem.getPontosSanidade());
+        
+        conectarSpinnersRecurso(spinnerEsforçoAtual, spinnerEsforçoMax, barraEsforço, this.personagem.getPontosEsforço());
 
         this.atualizarSpinnersRecursos();
-        
+
+        //Setar os atributos
+        conectarCampoAtributo(this.campoForça, Atributo.Força);
+        conectarCampoAtributo(this.campoAgilidade, Atributo.Agilidade);
+        conectarCampoAtributo(this.campoIntelecto, Atributo.Intelecto);
+        conectarCampoAtributo(this.campoPresença, Atributo.Presença);
+        conectarCampoAtributo(this.campoVigor, Atributo.Vigor);
+
         // Construir a area de pericias
         for (Pericia pericia : this.personagem.getPericias().keySet()) {
             this.areaPericias.getChildren().add(criarContainerPericia(pericia));
         }
+    }
+
+    private void conectarSpinnersRecurso(Spinner<Integer> spinnerValorAtual, Spinner<Integer> spinnerValorMaximo, ProgressBar barraRecurso, Recurso recurso) {
+        spinnerValorAtual.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
+
+        spinnerValorAtual.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            recurso.setValorAtual(Integer.parseInt(newValue));
+            barraRecurso.setProgress(recurso.getProporçao());
+        });
+
+        spinnerValorMaximo.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
+
+        spinnerValorMaximo.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            recurso.setValorMaximo(Integer.parseInt(newValue));
+            barraRecurso.setProgress(this.personagem.getPontosEsforço().getProporçao());
+        });
+
+        barraRecurso.setProgress(recurso.getProporçao());
+
+    }
+
+    private void conectarCampoAtributo(TextField campo, Atributo atributo) {
+        campo.setText(this.personagem.getAtributos().get(atributo).toString());
+        campo.setOnKeyTyped(event -> {
+            int newValor;
+            try {
+                newValor = Integer.parseInt(campo.getText());
+                this.personagem.setAtributo(atributo, newValor);
+                this.atualizarSpinnersRecursos();
+            } catch (Exception e) {
+                campo.setText(this.personagem.getAtributos().get(atributo).toString());
+            }
+
+        });
     }
 
     private void atualizarSpinnersRecursos() {
