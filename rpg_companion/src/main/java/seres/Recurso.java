@@ -62,4 +62,12 @@ public class Recurso {
         this.modificadorMaximo = modificador;
     }
 
+    public double getProporçao() {
+        double propoçao = ((double) this.valorAtual) / this.valorMaximo;
+        if (propoçao > 1) {
+            return 1;
+        }
+        return propoçao;
+    }
+
 }

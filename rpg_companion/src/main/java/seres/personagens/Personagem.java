@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Personagem extends Ser {
     private Classe classe;
     private int nivelExposicao;
-    private Recurso pontosEsforco;
+    private Recurso pontosEsforço;
     private Recurso pontosSanidade;
 
     private ArrayList<Item> inventario;
@@ -21,7 +21,7 @@ public class Personagem extends Ser {
         this.setDefesa(Classe.DEFESA_BASE + this.atributos.get(Atributo.Agilidade));
         this.nivelExposicao = Classe.NEX_INICIAL;
         this.pontosVida = new Recurso();
-        this.pontosEsforco = new Recurso();
+        this.pontosEsforço = new Recurso();
         this.pontosSanidade = new Recurso();
 
         this.atualizaValoresNoNivel();
@@ -49,14 +49,20 @@ public class Personagem extends Ser {
 
         // Esforço é modificado por presença        
         int esforcoMaximo = calculaRecursoNoNivel(this.classe.esforcoInicial(), this.classe.esforcoNex(), this.atributos.get(Atributo.Presença));
-        this.pontosEsforco.setValorMaximo(esforcoMaximo);
-        this.pontosEsforco.enche();
+        this.pontosEsforço.setValorMaximo(esforcoMaximo);
+        this.pontosEsforço.enche();
 
         // Sanidade não é modificada por nada
         int sanidadeMaxima = calculaRecursoNoNivel(this.classe.sanidadeInicial(), this.classe.sanidadeNex(), 0);  
         this.pontosSanidade.setValorMaximo(sanidadeMaxima);
         this.pontosSanidade.enche();
 
+    }
+
+    @Override
+    public void setAtributo(Atributo atributo, int valor) {
+        super.setAtributo(atributo, valor);
+        this.atualizaValoresNoNivel();
     }
 
     public void adicionaItem(Item item) {
@@ -89,6 +95,7 @@ public class Personagem extends Ser {
 
     public void setClasse(Classe classe) {
         this.classe = classe;
+        this.atualizaValoresNoNivel();
     }
 
     public int getNivelExposicao() {
@@ -97,10 +104,11 @@ public class Personagem extends Ser {
 
     public void setNivelExposicao(int nivelExposicao) {
         this.nivelExposicao = nivelExposicao;
+        this.atualizaValoresNoNivel();
     }
 
-    public Recurso getPontosEsforco() {
-        return this.pontosEsforco;
+    public Recurso getPontosEsforço() {
+        return this.pontosEsforço;
     }
 
     public Recurso getPontosSanidade() {
