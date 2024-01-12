@@ -3,22 +3,22 @@ package rpg_companion;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+
+import java.io.IOException;
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-import javafx.fxml.Initializable;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,8 +26,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import seres.Atributo;
@@ -37,9 +35,23 @@ import seres.Ser;
 import seres.personagens.Classe;
 import seres.personagens.Personagem;
 
-import gerenciador.GerenciadorSessao;
+public class PersonagemAreaController extends VBox {
 
-public class PersonagemAreaController extends Pane implements Initializable {
+    public static int id;
+
+    public PersonagemAreaController() {
+        PersonagemAreaController.id++;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PersonagemArea.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     private static final int ALTURA_CONTAINER = 43;
 
     private Personagem personagem;
@@ -104,13 +116,9 @@ public class PersonagemAreaController extends Pane implements Initializable {
     @FXML
     private TextArea textareaRolagens;
 
-    @FXML @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.personagem = new Personagem("John Paranormal", Classe.Ocultista);
-        this.personagem.setAtributo(Atributo.Intelecto, 20);
-        this.personagem.setPericia(Pericia.Ocultismo, 69);
-        this.personagem.setPericia(Pericia.Ciências, -10);
-
+    @FXML
+    public void setPersonagem(Personagem personagem) {
+        this.personagem = personagem;
         // Setar nome
         this.campoNome.setText(this.personagem.getNome());
         this.campoNome.setOnKeyTyped(event -> {

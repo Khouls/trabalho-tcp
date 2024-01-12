@@ -2,10 +2,14 @@ package rpg_companion;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -13,6 +17,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import seres.Atributo;
 import seres.Pericia;
@@ -35,7 +40,27 @@ public class PrimaryController implements Initializable {
         JohnParanormal.setPericia(Pericia.Ocultismo, 69);
         JohnParanormal.setPericia(Pericia.Ciências, -10);
         gerenciador.adicionaSer(JohnParanormal);
+
+        PersonagemAreaController paranormalController = new PersonagemAreaController();
+
+        paranormalController.setPersonagem(JohnParanormal);
+        
+        Personagem JohnSuco = new Personagem("John Suco", Classe.Combatente);
+        JohnSuco.setAtributo(Atributo.Força, 20);
+        JohnSuco.setPericia(Pericia.Luta, 69);
+        JohnSuco.setPericia(Pericia.Tática, -10);
+        gerenciador.adicionaSer(JohnSuco);
+
+        PersonagemAreaController sucoController = new PersonagemAreaController();
+
+        sucoController.setPersonagem(JohnSuco);
+        
+        this.personagemArea.getChildren().addAll(paranormalController, sucoController);
+
     }
+
+    @FXML
+    private HBox personagemArea;
 
     @FXML
     private HBox personagensBox; // HBox para conter os botões dos personagens
