@@ -4,9 +4,11 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -15,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root prefHeight="501.0" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minWidth="-Infinity" prefHeight="501.0" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox VBox.vgrow="ALWAYS">
          <children>
@@ -86,12 +88,17 @@
                   <TextArea fx:id="textareaRolagens" editable="false" prefHeight="220.0" prefWidth="342.0" />
                </children>
             </VBox>
-            <ScrollPane hbarPolicy="NEVER" maxWidth="250.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="250.0" styleClass="tab-header-background" stylesheets="@stylesheet.css" HBox.hgrow="ALWAYS">
+            <ScrollPane hbarPolicy="NEVER" maxWidth="250.0" prefHeight="200.0" prefWidth="250.0" styleClass="tab-header-background" stylesheets="@stylesheet.css" HBox.hgrow="NEVER">
                <content>
-                  <VBox fx:id="areaPericias" minWidth="200.0" prefWidth="200.0" />
+                  <VBox fx:id="areaPericias" prefWidth="200.0" />
                </content>
             </ScrollPane>
-            <VBox minWidth="-Infinity" prefHeight="509.0" prefWidth="281.0" />
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="502.0" prefWidth="261.0">
+              <items>
+                  <FlowPane fx:id="areaPoderes" prefHeight="200.0" prefWidth="200.0" rowValignment="TOP" />
+                  <FlowPane fx:id="areaItens" columnHalignment="CENTER" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" rowValignment="TOP" />
+              </items>
+            </SplitPane>
          </children>
       </HBox>
    </children>

@@ -41,9 +41,9 @@ public class PrimaryController implements Initializable {
         JohnParanormal.setPericia(Pericia.Ciências, -10);
         gerenciador.adicionaSer(JohnParanormal);
 
-        PersonagemAreaController paranormalController = new PersonagemAreaController();
+        PersonagemArea paranormalController = new PersonagemArea();
 
-        paranormalController.setPersonagem(JohnParanormal);
+        paranormalController.setup(JohnParanormal);
         
         Personagem JohnSuco = new Personagem("John Suco", Classe.Combatente);
         JohnSuco.setAtributo(Atributo.Força, 20);
@@ -51,11 +51,11 @@ public class PrimaryController implements Initializable {
         JohnSuco.setPericia(Pericia.Tática, -10);
         gerenciador.adicionaSer(JohnSuco);
 
-        PersonagemAreaController sucoController = new PersonagemAreaController();
+        PersonagemArea sucoController = new PersonagemArea();
 
-        sucoController.setPersonagem(JohnSuco);
+        sucoController.setup(JohnSuco);
         
-        this.personagemArea.getChildren().addAll(paranormalController, sucoController);
+        this.personagemArea.getChildren().addAll(paranormalController);
 
     }
 

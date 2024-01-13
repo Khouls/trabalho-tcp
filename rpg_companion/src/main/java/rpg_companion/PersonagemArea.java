@@ -1,16 +1,14 @@
 package rpg_companion;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
-import java.net.URL;
+
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
 
 
 import javafx.geometry.Pos;
@@ -23,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,25 +32,10 @@ import seres.Pericia;
 import seres.Recurso;
 import seres.Ser;
 import seres.personagens.Classe;
+import seres.personagens.Item;
 import seres.personagens.Personagem;
 
 public class PersonagemArea extends VBox {
-
-    public static int id;
-
-    public PersonagemArea() {
-        PersonagemArea.id++;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PersonagemArea.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
     private static final int ALTURA_CONTAINER = 43;
 
     private Personagem personagem;
@@ -112,12 +96,30 @@ public class PersonagemArea extends VBox {
 
     @FXML
     private VBox areaPericias;
+
+    @FXML
+    private FlowPane areaItens;
+    
+    @FXML
+    private FlowPane areaPoderes; 
     
     @FXML
     private TextArea textareaRolagens;
 
+    public PersonagemArea() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PersonagemArea.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     @FXML
-    public void setPersonagem(Personagem personagem) {
+    public void setup(Personagem personagem) {
         this.personagem = personagem;
         // Setar nome
         this.campoNome.setText(this.personagem.getNome());
@@ -178,6 +180,14 @@ public class PersonagemArea extends VBox {
         for (Pericia pericia : this.personagem.getPericias().keySet()) {
             this.areaPericias.getChildren().add(criarContainerPericia(pericia));
         }
+
+        // DEBUG
+        this.areaItens.getChildren().add(new ItemCard());
+        ((ItemCard)this.areaItens.getChildren().get(0)).setup(new Item("Componetes ritualísticos de sangue.", "Componentes usados para realizar rituais do Elemento Sangue", 0, 1), event -> {
+            System.out.println("AIOASJDIOASDIO");
+        });
+        this.areaItens.getChildren().add(new ItemCard());
+
     }
 
     private void conectarSpinnersRecurso(Spinner<Integer> spinnerValorAtual, Spinner<Integer> spinnerValorMaximo, ProgressBar barraRecurso, Recurso recurso) {
@@ -232,7 +242,7 @@ public class PersonagemArea extends VBox {
     private HBox criarContainerPericia(Pericia pericia) {
         HBox container = new HBox();
         container.setPrefHeight(ALTURA_CONTAINER);
-        container.setPrefWidth(200.0);
+        container.setMinWidth(250.0);
         container.setSpacing(10.0);
         container.getStylesheets().add("file:stylesheet.css");
         container.getStyleClass().add("background");
