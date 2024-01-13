@@ -35,12 +35,12 @@ import seres.Ser;
 import seres.personagens.Classe;
 import seres.personagens.Personagem;
 
-public class PersonagemAreaController extends VBox {
+public class PersonagemArea extends VBox {
 
     public static int id;
 
-    public PersonagemAreaController() {
-        PersonagemAreaController.id++;
+    public PersonagemArea() {
+        PersonagemArea.id++;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PersonagemArea.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
