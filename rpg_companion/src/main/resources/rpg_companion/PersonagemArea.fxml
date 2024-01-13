@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
@@ -93,10 +95,32 @@
                   <VBox fx:id="areaPericias" prefWidth="200.0" />
                </content>
             </ScrollPane>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="502.0" prefWidth="261.0">
+            <SplitPane dividerPositions="0.5" minWidth="-Infinity" orientation="VERTICAL" prefHeight="502.0" prefWidth="700.0">
               <items>
-                  <FlowPane fx:id="areaPoderes" prefHeight="200.0" prefWidth="200.0" rowValignment="TOP" />
-                  <FlowPane fx:id="areaItens" columnHalignment="CENTER" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" rowValignment="TOP" />
+                  <FlowPane fx:id="areaPoderes" prefHeight="200.0" prefWidth="200.0" rowValignment="TOP">
+                     <children>
+                        <Button mnemonicParsing="false" text="Button" />
+                     </children></FlowPane>
+                  <FlowPane fx:id="areaItens" columnHalignment="CENTER" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" prefWrapLength="600.0" rowValignment="TOP">
+                     <children>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="190.0" spacing="5.0" style="-fx-background-color: #3e3e3e; -fx-border-radius: 10px; -fx-background-radius: 10; -fx-border-color: #0d0d0d;">
+                           <children>
+                              <Text fill="#fcfcfc" strokeType="OUTSIDE" strokeWidth="0.0" text="Novo Item">
+                                 <font>
+                                    <Font name="Quicksand-Bold" size="17.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="botaoNovoItem" alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #099909; -fx-background-radius: 10px;" text="+" textFill="WHITE">
+                                 <font>
+                                    <Font name="Quicksand-Bold" size="24.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </children></FlowPane>
               </items>
             </SplitPane>
          </children>

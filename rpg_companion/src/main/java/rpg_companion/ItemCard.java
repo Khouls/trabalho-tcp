@@ -20,6 +20,8 @@ public class ItemCard extends VBox{
 
     private Item item;
 
+    private int index;
+
     @FXML
     private Spinner<Integer> spinnerPeso;
 
@@ -49,8 +51,9 @@ public class ItemCard extends VBox{
     }
 
 
-    public void setup(Item item, EventHandler<? super MouseEvent> funçãoDeletar) {
+    public void setup(Item item, int index, EventHandler<? super MouseEvent> funçãoDeletar) {
         this.item = item;
+        this.index = index;
 
         // Setar nome
         this.campoNome.setText(this.item.getNome());
@@ -81,6 +84,13 @@ public class ItemCard extends VBox{
 
         this.botãoDeletar.setOnMouseClicked(funçãoDeletar);
     }
-    
+
+    public int getIndex() {
+        return this.index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
 }

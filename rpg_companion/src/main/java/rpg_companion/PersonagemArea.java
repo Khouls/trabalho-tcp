@@ -99,7 +99,10 @@ public class PersonagemArea extends VBox {
 
     @FXML
     private FlowPane areaItens;
-    
+
+    @FXML
+    private Button botaoNovoItem;
+
     @FXML
     private FlowPane areaPoderes; 
     
@@ -137,6 +140,13 @@ public class PersonagemArea extends VBox {
         this.comboBoxClasse.setOnAction(event -> {
             this.personagem.setClasse(this.comboBoxClasse.getValue());
             this.atualizarSpinnersRecursos();
+
+            if (this.comboBoxClasse.getValue() == Classe.Combatente) {
+                this.campoNome.setVisible(false);
+            } else {
+                this.campoNome.setVisible(true);
+            }
+
         });
 
         // Setar NEX
@@ -181,12 +191,9 @@ public class PersonagemArea extends VBox {
             this.areaPericias.getChildren().add(criarContainerPericia(pericia));
         }
 
-        // DEBUG
-        this.areaItens.getChildren().add(new ItemCard());
-        ((ItemCard)this.areaItens.getChildren().get(0)).setup(new Item("Componetes ritualísticos de sangue.", "Componentes usados para realizar rituais do Elemento Sangue", 0, 1), event -> {
-            System.out.println("AIOASJDIOASDIO");
+        this.botaoNovoItem.setOnMouseClicked(event -> {
+            adicionarItem(new Item());
         });
-        this.areaItens.getChildren().add(new ItemCard());
 
     }
 
@@ -283,5 +290,27 @@ public class PersonagemArea extends VBox {
         container.getChildren().addAll(nome, spinnerModificador, botaoFazerRolagem);
 
         return container;
-    }  
+    }
+
+    private void adicionarItem (Item item) {
+        ItemCard cardItem = new ItemCard();
+        System.out.println("Tamanho antes:" + this.areaItens.getChildren().size());
+        // Adicionar o item no penultimo local
+        int index = this.areaItens.getChildren().size() - 1;
+        System.out.println("Index: " + index);
+
+        cardItem.setup(item, index, event -> {
+            this.areaItens.getChildren().remove(cardItem.getIndex());
+            this.atualizarIndicesItens();
+        });
+        this.areaItens.getChildren().add(index, cardItem);        
+    }
+
+    private void atualizarIndicesItens() {
+        // Passar até o penúltimo atualizando os indices
+        for (int index = 0; index < areaItens.getChildren().size() - 1; index++) {
+            ItemCard cardItem = (ItemCard) areaItens.getChildren().get(index);
+            cardItem.setIndex(index);
+        }
+    }
 }

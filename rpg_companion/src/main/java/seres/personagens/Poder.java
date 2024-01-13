@@ -35,6 +35,4 @@ public class Poder {
         this.elemento = elemento;
     }
 
-
-
 }
