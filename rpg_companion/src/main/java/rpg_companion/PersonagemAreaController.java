@@ -154,6 +154,19 @@ public class PersonagemAreaController extends VBox {
 
         this.atualizarSpinnersRecursos();
 
+        // Setar Defesa
+        this.campoDefesa.setText(String.valueOf(this.personagem.getDefesa()));
+        this.campoDefesa.setOnKeyTyped(event -> {
+            int newValor;
+            try {
+                newValor = Integer.parseInt(this.campoDefesa.getText());
+                this.personagem.setDefesa(newValor);
+                this.atualizarSpinnersRecursos();
+            } catch (Exception e) {
+                campoDefesa.setText(String.valueOf(this.personagem.getDefesa()));
+            }
+        });
+
         //Setar os atributos
         conectarCampoAtributo(this.campoForça, Atributo.Força);
         conectarCampoAtributo(this.campoAgilidade, Atributo.Agilidade);
