@@ -195,7 +195,7 @@ public class PersonagemArea extends VBox {
 
         // Construir a area de pericias
         for (Pericia pericia : this.personagem.getPericias().keySet()) {
-            this.areaPericias.getChildren().add(criarContainerPericia(pericia));
+           this.areaPericias.getChildren().add(criarContainerPericia(pericia));
         }
 
         // Setar o botão de adicionar Item

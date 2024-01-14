@@ -134,7 +134,7 @@
                   </VBox>
                </children>
             </VBox>
-            <ScrollPane hbarPolicy="NEVER" maxWidth="274.0" minWidth="-Infinity" prefHeight="502.0" prefWidth="270.0" style="-fx-background-color: 212121;" styleClass="background" HBox.hgrow="ALWAYS">
+            <ScrollPane hbarPolicy="NEVER" maxWidth="274.0" minWidth="-Infinity" prefHeight="502.0" prefWidth="270.0" styleClass="background" HBox.hgrow="ALWAYS">
                <content>
                   <VBox fx:id="areaPericias" alignment="TOP_CENTER" prefWidth="200.0" />
                </content>
