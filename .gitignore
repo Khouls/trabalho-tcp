@@ -12,3 +12,6 @@ rpg_companion/target/classes/seres/Ser.class
 rpg_companion/target/classes/seres/personagens/Classe.class
 rpg_companion/target/classes/seres/personagens/Elemento.class
 rpg_companion/target/classes/seres/personagens/Personagem.class
+rpg_companion/target/classes/seres/personagens/Poder.class
+rpg_companion/target/classes/rpg_companion/App.class
+rpg_companion/target/classes/rpg_companion/PrimaryController.class
