@@ -40,7 +40,7 @@ public class PoderCard extends VBox{
     private TextArea campoDescrição;
 
     public PoderCard() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ElementoCard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PoderCard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
