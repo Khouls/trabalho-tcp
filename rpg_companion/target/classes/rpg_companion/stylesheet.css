@@ -1,11 +1,17 @@
   
 .background {
     -fx-background-color:  #212121;
+    -fx-border-color: #020202;
 }
 
 .text-foreground  {
     -fx-text-fill: #f0f0f0;
     color: #f0f0f0;
+}
+
+.text-highlight  {
+    -fx-text-fill: #F5D03D;
+    color: #F5D03D;
 
 }
 
@@ -38,3 +44,19 @@
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected  .tab-label{
     -fx-text-fill: #F5D03D;
 }
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+ }
+
+ .button-action {
+    -fx-background-radius: 10px;
+ }
+
+ .button-action:hover {
+   -fx-effect: innershadow(gaussian, rgba(255,255,255,0.2), 127, 127, 0, 0)
+ }
+
+ .button-action:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 127, 127, 0, 0)
+  }
