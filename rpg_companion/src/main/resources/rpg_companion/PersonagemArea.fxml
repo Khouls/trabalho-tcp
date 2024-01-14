@@ -27,7 +27,7 @@
                <children>
                   <VBox prefHeight="502.0" prefWidth="371.0" styleClass="background" VBox.vgrow="ALWAYS">
                      <children>
-                        <Pane minWidth="-Infinity" prefHeight="299.0" prefWidth="342.0" styleClass="background" VBox.vgrow="NEVER">
+                        <Pane minWidth="-Infinity" prefHeight="299.0" prefWidth="370.0" styleClass="background" VBox.vgrow="NEVER">
                            <children>
                               <TextField fx:id="campoNome" layoutX="68.0" layoutY="14.0" prefHeight="25.0" prefWidth="235.0" />
                               <ComboBox fx:id="comboBoxClasse" layoutX="68.0" layoutY="49.0" prefHeight="25.0" prefWidth="116.0" promptText="Classe" />
@@ -134,9 +134,9 @@
                   </VBox>
                </children>
             </VBox>
-            <ScrollPane hbarPolicy="NEVER" maxWidth="274.0" prefHeight="502.0" prefWidth="274.0" style="-fx-background-color: 212121;" styleClass="background" HBox.hgrow="NEVER">
+            <ScrollPane hbarPolicy="NEVER" maxWidth="274.0" minWidth="-Infinity" prefHeight="502.0" prefWidth="270.0" style="-fx-background-color: 212121;" styleClass="background" HBox.hgrow="ALWAYS">
                <content>
-                  <VBox fx:id="areaPericias" prefWidth="200.0" />
+                  <VBox fx:id="areaPericias" alignment="TOP_CENTER" prefWidth="200.0" />
                </content>
             </ScrollPane>
             <VBox style="-fx-background-color: #212121;" styleClass="background" HBox.hgrow="ALWAYS">

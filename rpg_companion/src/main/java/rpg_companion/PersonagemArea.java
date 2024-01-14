@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -259,34 +260,9 @@ public class PersonagemArea extends VBox {
 
     }
 
-    private HBox criarContainerPericia(Pericia pericia) {
-        HBox container = new HBox();
-        container.setPrefHeight(ALTURA_CONTAINER);
-        container.setMinWidth(250.0);
-        container.setSpacing(10.0);
-        container.getStylesheets().add("file:stylesheet.css");
-        container.getStyleClass().add("background");
-        container.getStyleClass().add("text-foreground");
-        container.setAlignment(Pos.CENTER_LEFT);
-
-        Text nome = new Text(pericia.toString());
-        nome.setFont(new Font(14.0));
-        nome.setFill(Color.valueOf("#f0f0f0"));
-
-        Spinner<Integer> spinnerModificador = new Spinner<Integer>(-100, 100, this.personagem.getPericias().get(pericia));
-        spinnerModificador.setEditable(true);
-        spinnerModificador.setPrefHeight(25.0);
-        spinnerModificador.setPrefWidth(68.0);
-        spinnerModificador.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            this.personagem.setPericia(pericia, Integer.parseInt(newValue));
-        });
-
-        Button botaoFazerRolagem = new Button();
-        botaoFazerRolagem.setPrefHeight(34.0);
-        botaoFazerRolagem.setPrefWidth(32.0);
-        botaoFazerRolagem.getStylesheets().add("file:./src/main/resources/rpg_companion/stylesheet.css");
-        botaoFazerRolagem.getStyleClass().add("background");
-        botaoFazerRolagem.setOnMouseClicked(event -> {
+    private PericiaBox criarContainerPericia(Pericia pericia) {
+        PericiaBox boxPericia = new PericiaBox();
+        boxPericia.setup(this.personagem, pericia, event -> {
             try {
                 this.personagem.fazerTeste(pericia);
                 textareaRolagens.setText(Ser.getHistoricoRolagens());
@@ -294,15 +270,8 @@ public class PersonagemArea extends VBox {
                 System.out.println("Pericia Inválida:" + pericia);
             }
         });
-        Image imagemDado = new Image("file:./src/main/resources/icons/d20.png");
-        ImageView iconeBotao = new ImageView(imagemDado);
-        iconeBotao.setFitHeight(36.0);
-        iconeBotao.setPreserveRatio(true);
-        botaoFazerRolagem.setGraphic(iconeBotao);
-        
-        container.getChildren().addAll(nome, spinnerModificador, botaoFazerRolagem);
 
-        return container;
+        return boxPericia;
     }
 
     private void adicionarItem (Item item) {
