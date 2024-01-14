@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import seres.Atributo;
 import seres.Pericia;
@@ -46,11 +47,10 @@ public class PrimaryController implements Initializable {
         paranormalController.setup(JohnParanormal);
         
         this.personagemArea.getChildren().addAll(paranormalController);
-
     }
 
     @FXML
-    private HBox personagemArea;
+    private VBox personagemArea;
 
     @FXML
     private HBox personagensBox; // HBox para conter os botões dos personagens

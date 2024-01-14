@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -119,6 +120,7 @@ public class PersonagemArea extends VBox {
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
+            this.setVgrow(this, Priority.ALWAYS);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
