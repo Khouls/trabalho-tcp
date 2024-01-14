@@ -63,11 +63,11 @@ public class PericiaBox extends GridPane {
         this.botaoRolar.setOnMouseClicked(funçãoRolar);
         
         // Adicionar o icone ao botão
-       // Image imagemDado = new Image(getResource("../icons/d20.png").toExternalForm());
-        //ImageView iconeBotao = new ImageView(imagemDado);
-        //iconeBotao.setFitHeight(36.0);
-        //iconeBotao.setPreserveRatio(true);
-        //this.botaoRolar.setGraphic(iconeBotao);
+        Image imagemDado = new Image(getClass().getResource("icons/d20.png").toExternalForm());
+        ImageView iconeBotao = new ImageView(imagemDado);
+        iconeBotao.setFitHeight(36.0);
+        iconeBotao.setPreserveRatio(true);
+        this.botaoRolar.setGraphic(iconeBotao);
         
     }
 }
