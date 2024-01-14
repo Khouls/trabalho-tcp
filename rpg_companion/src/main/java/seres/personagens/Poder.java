@@ -5,6 +5,12 @@ public class Poder {
     private String descricao;
     private Elemento elemento;
 
+    public Poder() {
+        this.nome = "";
+        this.descricao = "";
+        this.elemento = Elemento.Nenhum;
+    }
+
     public Poder(String nome, String descricao, Elemento elemento) {
         this.nome = nome;
         this.descricao = descricao;

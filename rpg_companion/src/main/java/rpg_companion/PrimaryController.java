@@ -45,16 +45,6 @@ public class PrimaryController implements Initializable {
 
         paranormalController.setup(JohnParanormal);
         
-        Personagem JohnSuco = new Personagem("John Suco", Classe.Combatente);
-        JohnSuco.setAtributo(Atributo.Força, 20);
-        JohnSuco.setPericia(Pericia.Luta, 69);
-        JohnSuco.setPericia(Pericia.Tática, -10);
-        gerenciador.adicionaSer(JohnSuco);
-
-        PersonagemArea sucoController = new PersonagemArea();
-
-        sucoController.setup(JohnSuco);
-        
         this.personagemArea.getChildren().addAll(paranormalController);
 
     }

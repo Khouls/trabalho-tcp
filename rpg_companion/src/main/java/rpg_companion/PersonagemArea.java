@@ -34,6 +34,7 @@ import seres.Ser;
 import seres.personagens.Classe;
 import seres.personagens.Item;
 import seres.personagens.Personagem;
+import seres.personagens.Poder;
 
 public class PersonagemArea extends VBox {
     private static final int ALTURA_CONTAINER = 43;
@@ -105,6 +106,9 @@ public class PersonagemArea extends VBox {
 
     @FXML
     private FlowPane areaPoderes; 
+
+    @FXML
+    private Button botaoNovoPoder;
     
     @FXML
     private TextArea textareaRolagens;
@@ -191,9 +195,16 @@ public class PersonagemArea extends VBox {
             this.areaPericias.getChildren().add(criarContainerPericia(pericia));
         }
 
+        // Setar o botão de adicionar Item
         this.botaoNovoItem.setOnMouseClicked(event -> {
             adicionarItem(new Item());
         });
+
+        // Setar o botão de adicionar Item
+        this.botaoNovoPoder.setOnMouseClicked(event -> {
+            adicionarPoder(new Poder());
+        });
+
 
     }
 
@@ -271,7 +282,7 @@ public class PersonagemArea extends VBox {
         Button botaoFazerRolagem = new Button();
         botaoFazerRolagem.setPrefHeight(34.0);
         botaoFazerRolagem.setPrefWidth(32.0);
-        botaoFazerRolagem.getStylesheets().add("file:stylesheet.css");
+        botaoFazerRolagem.getStylesheets().add("file:./src/main/resources/rpg_companion/stylesheet.css");
         botaoFazerRolagem.getStyleClass().add("background");
         botaoFazerRolagem.setOnMouseClicked(event -> {
             try {
@@ -294,16 +305,28 @@ public class PersonagemArea extends VBox {
 
     private void adicionarItem (Item item) {
         ItemCard cardItem = new ItemCard();
-        System.out.println("Tamanho antes:" + this.areaItens.getChildren().size());
         // Adicionar o item no penultimo local
         int index = this.areaItens.getChildren().size() - 1;
-        System.out.println("Index: " + index);
 
         cardItem.setup(item, index, event -> {
             this.areaItens.getChildren().remove(cardItem.getIndex());
             this.atualizarIndicesItens();
         });
+
         this.areaItens.getChildren().add(index, cardItem);        
+    }
+
+    private void adicionarPoder (Poder poder) {
+        PoderCard cardPoder = new PoderCard();
+        // Adicionar o item no penultimo local
+        int index = this.areaPoderes.getChildren().size() - 1;
+
+        cardPoder.setup(poder, index, event -> {
+            this.areaPoderes.getChildren().remove(cardPoder.getIndex());
+            this.atualizarIndicesPoderes();
+        });
+
+        this.areaPoderes.getChildren().add(index, cardPoder);        
     }
 
     private void atualizarIndicesItens() {
@@ -311,6 +334,14 @@ public class PersonagemArea extends VBox {
         for (int index = 0; index < areaItens.getChildren().size() - 1; index++) {
             ItemCard cardItem = (ItemCard) areaItens.getChildren().get(index);
             cardItem.setIndex(index);
+        }
+    }
+
+    private void atualizarIndicesPoderes() {
+        // Passar até o penúltimo atualizando os indices
+        for (int index = 0; index < areaPoderes.getChildren().size() - 1; index++) {
+            PoderCard cardPoder = (PoderCard) areaPoderes.getChildren().get(index);
+            cardPoder.setIndex(index);
         }
     }
 }

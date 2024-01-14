@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -22,7 +23,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="botãoDeletar" mnemonicParsing="false" prefHeight="26.0" prefWidth="38.0" style="-fx-background-color: #dd0d0d;" text="X" textFill="WHITE" textOverrun="CLIP">
+            <Button fx:id="botãoDeletar" mnemonicParsing="false" prefHeight="26.0" prefWidth="38.0" style="-fx-background-color: #dd0d0d;" styleClass="button-action" text="X" textFill="WHITE" textOverrun="CLIP">
                <font>
                   <Font name="Quicksand-Bold" size="14.0" />
                </font>
@@ -62,4 +63,7 @@
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
+   <effect>
+      <DropShadow height="5.0" radius="2.0" width="5.0" />
+   </effect>
 </fx:root>
