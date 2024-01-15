@@ -33,7 +33,7 @@ public class TesteRolagem {
     }
 
     @Test
-    // Testa rodar varios 
+    // Testa rodar varios dados de seis lados e somar seus resultados
     void testeRolarD6Somar() {
         final int qtInicial = 1;
         final int qtFinal = 10;
@@ -60,6 +60,39 @@ public class TesteRolagem {
 
             // Garante que foi pego o maior dos dois
             assertEquals(resultadoFinal, total);
+        }
+    }
+
+    @Test
+    // Testa rodar varios dados de seis lados e somar seus resultados, verificando se o modificador é aplicado no final
+    void testeRolarD6SomarComModificador() {
+        final int qtInicial = 1;
+        final int qtFinal = 10;
+
+        final int numFaces = 6;
+
+        final int modificador = 10;
+
+        for (int qtDados = qtInicial; qtDados < qtFinal; qtDados++) {
+            Rolagem rolagem = Rolagem.rolarDados(numFaces, qtDados, modificador);
+            int resultadoFinal = rolagem.getResultadoFinal();
+            int total = 0;
+            for (int valor : rolagem.getResultados()) {
+                total += valor;
+            }
+
+            boolean dentroAcima = resultadoFinal <= qtDados * numFaces + modificador;
+            boolean dentroAbaixo = resultadoFinal >= qtDados * 1 + modificador;
+
+            // Garante que o resultado está na faixa esperada
+            assertTrue(dentroAcima && dentroAbaixo, "Fora do Intervalo: " + resultadoFinal);
+
+            // Garante que foram rodados dois dados
+            assertEquals(rolagem.getResultados().size(), qtDados, "Quantidade errada: " + rolagem.getResultados().size() + "/" + qtDados);
+
+
+            // Garante que foi pego o maior dos dois
+            assertEquals(resultadoFinal, total + modificador);
         }
     }
 
