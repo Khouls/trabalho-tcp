@@ -33,25 +33,97 @@
 -->
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rpg_companion.PrimaryController">
   <children>
-      <TabPane prefHeight="0.0" stylesheets="@stylesheet.css" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="40.0" tabMinHeight="40.0" VBox.vgrow="ALWAYS">
+      <TabPane fx:id="tabelaPrincipal" prefHeight="0.0" stylesheets="@stylesheet.css" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="40.0" tabMinHeight="40.0" VBox.vgrow="ALWAYS">
         <tabs>
           <Tab closable="false" text="Main">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FF0000;" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FF0000;">
+                     <children>
+                        <FlowPane hgap="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="559.0" prefWidth="798.0" vgap="3.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-border-width: 5; -fx-border-color: black;">
+                                 <children>
+                                    <Label text="Nome">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Vida" />
+                                    <ProgressBar prefWidth="200.0" progress="0.0" />
+                                    <Label text="Sanidade" />
+                                    <ProgressBar prefWidth="200.0" progress="0.0" />
+                                    <Label text="Esforço" />
+                                    <ProgressBar prefWidth="200.0" progress="0.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </FlowPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding></Pane>
                </content></Tab>
             <Tab text="Personagem">
                <content>
                   <VBox fx:id="personagemArea" prefHeight="200.0" prefWidth="100.0" />
                </content>
             </Tab>
-          <Tab closable="false" text="+" />
+          <Tab closable="false" text="+">
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" style="-fx-border-color: red; -fx-border-width: 3;">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <children>
+                              <Label text="Label" textFill="RED">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="SeletorTipoChoiceBox" prefWidth="150.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: red;" />
+                        <VBox alignment="TOP_CENTER" prefHeight="741.0" prefWidth="166.0" spacing="10.0">
+                           <children>
+                              <Label fx:id="SeletorTipoLabel" text="Label" textFill="RED" />
+                              <TextField fx:id="NomePersonagemCriadorTextField" promptText="Nome do Personagem" />
+                              <TextField fx:id="ClassePersonagemCriadorTextField" promptText="Classe do Personagem" />
+                              <Button fx:id="adicionaPersonagemBotao" mnemonicParsing="false" onAction="#adicionaPersonagem" text="Adiciona" />
+                           </children>
+                        </VBox>
+                        <Separator layoutX="133.0" layoutY="13.0" orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: red;" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </padding>
+                  </HBox>
+               </content></Tab>
         </tabs>
          <styleClass>
             <String fx:value="tab-pane-background" />
