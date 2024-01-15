@@ -8,14 +8,12 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import gerenciador.Rolagem;
-
 
 public class TesteRolagem {
 
     @Test
     // Testa rolagens com todos os modificadores na faixa especificada
-    void testeRolarD20() {
+    public void testeRolarD20() {
         final int modificadorFinal = 100;
         final int modificadorInicial = -100;
 
@@ -34,7 +32,7 @@ public class TesteRolagem {
 
     @Test
     // Testa rodar varios dados de seis lados e somar seus resultados
-    void testeRolarD6Somar() {
+    public void testeRolarD6Somar() {
         final int qtInicial = 1;
         final int qtFinal = 10;
 
@@ -65,7 +63,7 @@ public class TesteRolagem {
 
     @Test
     // Testa rodar varios dados de seis lados e somar seus resultados, verificando se o modificador é aplicado no final
-    void testeRolarD6SomarComModificador() {
+    public void testeRolarD6SomarComModificador() {
         final int qtInicial = 1;
         final int qtFinal = 10;
 
@@ -98,7 +96,7 @@ public class TesteRolagem {
 
     @Test
     // Testa rolagens sem modificador, rodando nd20s na faixa especificada e pegando o maior
-    void testeRodarTesteVantagem() {
+    public void testeRodarTesteVantagem() {
         final int qtInicial = 1;
         final int qtFinal = 10;
 
@@ -124,7 +122,7 @@ public class TesteRolagem {
 
     @Test
     // Testa rolagens sem modificador, rodando nd20s na faixa especificada e pegando o menor
-    void testeRodarTesteDesvantagem() {
+    public void testeRodarTesteDesvantagem() {
         final int qtInicial = 0;
         final int qtFinal = -10;
 
