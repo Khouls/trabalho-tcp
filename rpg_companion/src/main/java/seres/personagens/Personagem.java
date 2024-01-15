@@ -115,11 +115,11 @@ public class Personagem extends Ser {
     }
 
     public ArrayList<Item> getInventario() {
-        return new ArrayList<Item>(this.inventario);
+        return this.inventario;
     }
 
     public ArrayList<Poder> getPoderes() {
-        return new ArrayList<Poder>(this.poderes);
+        return this.poderes;
     }
 
 

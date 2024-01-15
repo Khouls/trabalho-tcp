@@ -52,11 +52,11 @@ public class Recurso {
     }
 
     public double getProporçao() {
-        double propoçao = ((double) this.valorAtual) / this.valorMaximo;
-        if (propoçao > 1) {
+        double proporçao = ((double) this.valorAtual) / this.valorMaximo;
+        if (proporçao > 1 || this.valorMaximo == 0) {
             return 1;
         }
-        return propoçao;
+        return proporçao;
     }
 
 }

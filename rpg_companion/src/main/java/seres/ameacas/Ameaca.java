@@ -19,7 +19,8 @@ public class Ameaca extends Ser {
     
     @Override
     protected void inicializarPericias() {
-        // Ameaças apenas possuem Percepção, Iniciativa, Fortitude, Reflexos e Vontade
+        // Ameaças apenas possuem Luta, Percepção, Iniciativa, Fortitude, Reflexos e Vontade
+        this.pericias.put(Pericia.Luta, 0);
         this.pericias.put(Pericia.Percepção, 0);
         this.pericias.put(Pericia.Iniciativa, 0);
         this.pericias.put(Pericia.Fortitude, 0);

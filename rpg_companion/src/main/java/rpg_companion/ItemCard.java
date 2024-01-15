@@ -1,8 +1,6 @@
 package rpg_companion;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.function.Function;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

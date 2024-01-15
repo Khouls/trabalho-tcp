@@ -36,7 +36,7 @@ public class TestePersonagem {
 
     @Test
     // Testa fazer uma rolagem em uma pericia que o personagem possui atributo positivo
-    void testeFazerTesteVantagem() {
+    public void testeFazerTesteVantagem() {
         try {
             Pericia periciaTeste = Pericia.Ocultismo;
             // Teste com um numero "negativo" de dados
@@ -54,7 +54,7 @@ public class TestePersonagem {
 
     @Test
     // Testa fazer uma rolagem em uma pericia que o personagem possui atributo não positivo
-    void testeFazerTesteDesvantagem() {
+    public void testeFazerTesteDesvantagem() {
         try {
             Pericia periciaTeste = Pericia.Luta;
             // Teste com um numero "positivo" de dados
@@ -71,8 +71,21 @@ public class TestePersonagem {
     }
 
     @Test
-    // Testa fazer uma rolagem em uma pericia que o personagem possui atributo não positivo
-    void testeFazerTesteAtributo() {
+    // Testa fazer uma rolagem em um atributo não positivo
+    public void testeFazerTesteAtributoNaoPositivo() {
+        Atributo atributoTeste = Atributo.Vigor;
+        Rolagem resultados = personagem.fazerTeste(atributoTeste);
+
+        // Garante que foi feito um teste com o numero de dados certos
+        assertEquals(resultados.getResultados().size(), 2 - this.personagem.getAtributos().get(atributoTeste));
+            
+        // Garante que foi feito um teste com o modificador correto (teste de Atributo tem modificador 0)
+        assertEquals(resultados.getModificador(), 0);
+    }
+
+    @Test
+    // Testa fazer uma rolagem em um atributo não positivo
+    public void testeFazerTesteAtributoPositivo() {
         Atributo atributoTeste = Atributo.Presença;
         Rolagem resultados = personagem.fazerTeste(atributoTeste);
 

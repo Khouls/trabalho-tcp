@@ -25,7 +25,7 @@ public class TesteGerenciador {
 
     @Test
     // Testa adicionar um personagem, mudar seu nome e classe e verificar se a mudança foi propagada
-    void testePropagarMudancasPorDentro() {
+    public void testePropagarMudancasPorDentro() {
         Personagem personagem = new Personagem("John Paranormal", Classe.Ocultista);
         this.gerenciador.adicionaSer(personagem);
 
@@ -42,7 +42,7 @@ public class TesteGerenciador {
 
     @Test
     // Adiciona um personagem ao gerenciador, copia ele externamente e verifica se as mudancas foram propagadas
-    void testePropagarMudancasPorFora() {
+    public void testePropagarMudancasPorFora() {
         Personagem personagem = new Personagem("John Paranormal", Classe.Ocultista);
 
         this.gerenciador.adicionaSer(personagem);
@@ -63,7 +63,7 @@ public class TesteGerenciador {
 
     @Test
     // Testa adicionar um personagens e ameacas, remover algumas e verificar se as outras estao intactas
-    void testeAdicionarERemover() {
+    public void testeAdicionarERemover() {
         Personagem personagem1 = new Personagem("John Paranormal", Classe.Ocultista);
         this.gerenciador.adicionaSer(personagem1);
 

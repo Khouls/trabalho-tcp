@@ -23,7 +23,7 @@ public class TesteRecurso {
 
     @Test
     // Testa a função de encher o recurso e verifica se esta igual ao maximo
-    void testeEnche() {
+    public void testeEnche() {
         this.recurso.enche();
 
         assertEquals(this.recurso.getValorAtual(), this.recurso.getValorMaximo());
@@ -31,7 +31,7 @@ public class TesteRecurso {
 
     @Test
     // Testa a função de zerar e verifica se for igual a zero
-    void testeZera() {
+    public void testeZera() {
         this.recurso.zera();
 
         assertEquals(this.recurso.getValorAtual(), 0);
@@ -39,7 +39,7 @@ public class TesteRecurso {
 
     @Test
     // Testa definir dois valores e verificar se a porporcao esta correta (menor que 1)
-    void testeProporçao() {
+    public void testeProporçao() {
         this.recurso.setValorAtual(1);
         this.recurso.setValorMaximo(2);
 
@@ -48,7 +48,7 @@ public class TesteRecurso {
 
     @Test
     // Testa definir dois valores e verificar se a porporcao esta correta (menor que 1)
-    void testeProporcaoMaiorQue1() {
+    public void testeProporcaoMaiorQue1() {
         this.recurso.setValorAtual(2);
         this.recurso.setValorMaximo(1);
 

@@ -30,19 +30,19 @@
                         <Pane minWidth="-Infinity" prefHeight="299.0" prefWidth="370.0" styleClass="background" VBox.vgrow="NEVER">
                            <children>
                               <TextField fx:id="campoNome" layoutX="68.0" layoutY="14.0" prefHeight="25.0" prefWidth="235.0" />
-                              <ComboBox fx:id="comboBoxClasse" layoutX="68.0" layoutY="49.0" prefHeight="25.0" prefWidth="116.0" promptText="Classe" />
-                              <GridPane layoutX="211.0" layoutY="85.0" prefHeight="145.0" prefWidth="142.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="57.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="59.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <GridPane layoutX="187.0" layoutY="85.0" prefHeight="154.0" prefWidth="159.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.0" minWidth="10.0" prefWidth="70.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="25.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="58.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
                                     <TextField fx:id="campoPresença" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <TextField fx:id="campoForça" GridPane.columnIndex="1" />
@@ -74,8 +74,14 @@
                                           <Font name="Quicksand-Bold" size="14.0" />
                                        </font>
                                     </Text>
+                                    <Button fx:id="botaoTesteForca" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                    <Button fx:id="botaoTesteAgilidade" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <Button fx:id="botaoTesteIntelecto" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Button fx:id="botaoTestePresenca" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                    <Button fx:id="botaoTesteVigor" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                                  </children>
                               </GridPane>
+                              <ComboBox fx:id="comboBoxClasse" layoutX="68.0" layoutY="49.0" prefHeight="25.0" prefWidth="116.0" promptText="Classe" />
                               <ProgressBar fx:id="barraVida" layoutX="14.0" layoutY="87.0" prefHeight="18.0" prefWidth="149.0" progress="1.0" />
                               <Text fill="WHITE" layoutX="73.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-foreground" text="Vida">
                                  <font>
@@ -115,8 +121,8 @@
                                  </font>
                               </Text>
                               <Spinner fx:id="spinnerEsforçoMax" editable="true" layoutX="105.0" layoutY="252.0" prefHeight="25.0" prefWidth="59.0" />
-                              <TextField fx:id="campoDefesa" layoutX="258.0" layoutY="252.0" prefHeight="25.0" prefWidth="49.0" />
-                              <Text fill="#f5d03d" layoutX="258.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Defesa">
+                              <TextField fx:id="campoDefesa" layoutX="258.0" layoutY="259.0" prefHeight="25.0" prefWidth="49.0" />
+                              <Text fill="#f5d03d" layoutX="258.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Defesa">
                                  <font>
                                     <Font name="Quicksand-Bold" size="14.0" />
                                  </font>
@@ -149,7 +155,7 @@
                <children>
                   <ScrollPane hbarPolicy="NEVER" style="-fx-border-color: #020202;" styleClass="background" VBox.vgrow="ALWAYS">
                      <content>
-                        <FlowPane fx:id="areaPoderes" prefHeight="200.0" prefWrapLength="600.0" rowValignment="TOP">
+                        <FlowPane fx:id="areaPoderes" orientation="VERTICAL" prefHeight="200.0" prefWrapLength="600.0" rowValignment="TOP">
                            <padding>
                               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                            </padding>
@@ -180,7 +186,7 @@
                   </ScrollPane>
                   <ScrollPane hbarPolicy="NEVER" style="-fx-border-color: #020202;" styleClass="background" VBox.vgrow="ALWAYS">
                      <content>
-                        <FlowPane fx:id="areaItens" columnHalignment="CENTER" minWidth="-Infinity" prefHeight="200.0" prefWrapLength="600.0" rowValignment="TOP">
+                        <FlowPane fx:id="areaItens" minWidth="-Infinity" prefHeight="200.0" prefWrapLength="0.0" rowValignment="TOP">
                            <children>
                               <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="190.0" spacing="5.0" style="-fx-background-color: #3e3e3e; -fx-border-radius: 10px; -fx-background-radius: 10; -fx-border-color: #0d0d0d;">
                                  <children>
