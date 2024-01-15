@@ -1,17 +1,20 @@
 package rpg_companion;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 import java.net.URL;
 import java.security.InvalidKeyException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -35,25 +38,6 @@ public class PrimaryController implements Initializable {
 
     private GerenciadorSessao gerenciador = new GerenciadorSessao();
 
-    @FXML @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Personagem JohnParanormal = new Personagem("John Paranormal", Classe.Ocultista);
-        JohnParanormal.setAtributo(Atributo.Intelecto, 20);
-        JohnParanormal.setPericia(Pericia.Ocultismo, 69);
-        JohnParanormal.setPericia(Pericia.Ciências, -10);
-        gerenciador.adicionaSer(JohnParanormal);
-
-        PersonagemArea paranormalController = new PersonagemArea();
-
-        paranormalController.setup(JohnParanormal);
-        
-        this.personagemArea.getChildren().addAll(paranormalController);
-
-                // Criador de persnagem ou criatura
-                SeletorTipoChoiceBox.getItems().addAll(TiposDeSer);
-                SeletorTipoChoiceBox.setOnAction(this::getTipoDeSer);
-    }
-
     @FXML
     private TabPane tabelaPrincipal; // Tabs no topo da tela
 
@@ -69,46 +53,82 @@ public class PrimaryController implements Initializable {
     @FXML
     private TextField nomePersonagemField;
 
-    @FXML
-    private TextField classePersonagemField;
+    private String[] tiposDeSer = {"Personagem", "Criatura"};
 
-    private int contadorPersonagens = 1; // Contador para identificar cada personagem
-
-    private String[] TiposDeSer = {"Personagem", "Criatura"};
-   
     // Seleciona se vai ser criado personagem ou criatura
     @FXML
-    private ChoiceBox<String> SeletorTipoChoiceBox;
+    private ChoiceBox<String> seletorTipoChoiceBox;
 
     @FXML
-    private Label SeletorTipoLabel;
+    private Label seletorTipoLabel;
 
         
     // Inputs de texto do criador de personagem
 
     @FXML
-    private TextField NomePersonagemCriadorTextField;
+    private TextField nomePersonagemCriadorTextField;
+
     @FXML
-    private TextField ClassePersonagemCriadorTextField;
+    private ComboBox<Classe> classePersonagemCriadorComboBox;
+
+    @FXML @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Personagem JohnParanormal = new Personagem("John Paranormal", Classe.Ocultista);
+        JohnParanormal.setAtributo(Atributo.Intelecto, 20);
+        JohnParanormal.setPericia(Pericia.Ocultismo, 69);
+        JohnParanormal.setPericia(Pericia.Ciências, -10);
+        gerenciador.adicionaSer(JohnParanormal);
+
+        PersonagemArea paranormalController = new PersonagemArea();
+
+        paranormalController.setup(JohnParanormal);
+        
+        this.personagemArea.getChildren().addAll(paranormalController);
+
+        // Criador de persnagem ou criatura
+        seletorTipoChoiceBox.getItems().addAll(tiposDeSer);
+        seletorTipoChoiceBox.setOnAction(this::getTipoDeSer);
+        seletorTipoChoiceBox.setValue(tiposDeSer[0]);
+
+        seletorTipoChoiceBox.setOnAction(event -> {
+            if (this.seletorTipoChoiceBox.getValue() == "Criatura") {
+                this.classePersonagemCriadorComboBox.setVisible(false);
+            } else {
+                this.classePersonagemCriadorComboBox.setVisible(true);
+            }
+        });
+
+        // Seletor de classe para o personagem
+        ArrayList<Classe> opcoesClasse = new ArrayList<Classe>();
+        for (Classe classe : Classe.values()) {
+            opcoesClasse.add(classe);
+        }
+        this.classePersonagemCriadorComboBox.setItems(FXCollections.observableList(opcoesClasse));
+        this.classePersonagemCriadorComboBox.setValue(Classe.Combatente);
+    }
+   
 
     @FXML
     private void adicionaPersonagem() {
         // Cria um personagem temporário, utilizando os valores nas caixas de texto, e insere no gerenciador
         // Então cria uma nova tab para o personagem
 
-        Personagem PersonagemTemporario = new Personagem(NomePersonagemCriadorTextField.getText(), Classe.Ocultista);
-        gerenciador.adicionaSer(PersonagemTemporario);
-        PersonagemArea PersonagemTemporarioControler = new PersonagemArea();
-        PersonagemTemporarioControler.setup(PersonagemTemporario);
-        this.personagemArea.getChildren().addAll(PersonagemTemporarioControler);
+        Personagem personagemTemporario = new Personagem(nomePersonagemCriadorTextField.getText(), classePersonagemCriadorComboBox.getValue());
+        gerenciador.adicionaSer(personagemTemporario);
+        PersonagemArea personagemTemporarioControler = new PersonagemArea();
+        personagemTemporarioControler.setup(personagemTemporario);
+        this.personagemArea.getChildren().addAll(personagemTemporarioControler);
 
-        Tab tab = new Tab(NomePersonagemCriadorTextField.getText(), PersonagemTemporarioControler);
-        tabelaPrincipal.getTabs().add(tab);
+        Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), personagemTemporarioControler);
+        tab.setOnSelectionChanged(event -> {
+            personagemTemporarioControler.atualizarTextoRolagens();
+        });
+        tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
     }
 
     public void getTipoDeSer(ActionEvent event){
-        String tipoDeSer = SeletorTipoChoiceBox.getValue();
-        SeletorTipoLabel.setText(tipoDeSer);
+        String tipoDeSer = seletorTipoChoiceBox.getValue();
+        seletorTipoLabel.setText(tipoDeSer);
     }
 
     @FXML
@@ -130,48 +150,6 @@ public class PrimaryController implements Initializable {
         // Lógica a ser executada quando o segundo botão for pressionado
         System.out.println("Segundo botão pressionado!");
         // Adicione aqui o código que deseja executar quando o segundo botão for clicado
-    }
-
-    @FXML
-    private void adicionarPersonagem(ActionEvent event) {
-    /*     // Lógica para adicionar um novo botão de personagem
-        String nomeNovoPersonagem = "Novo Personagem " + contadorPersonagens; // Nome do novo personagem (substitua por uma entrada real)
-
-        Button novoBotaoPersonagem = new Button(nomeNovoPersonagem);
-        novoBotaoPersonagem.setOnAction(e -> abrirPaginaPersonagem(nomeNovoPersonagem)); // Define a ação do botão
-
-        personagensBox.getChildren().add(novoBotaoPersonagem); // Adiciona o botão ao HBox
-
-        contadorPersonagens++; // Incrementa o contador de personagens*/
-
-        String nomeNovoPersonagem = nomePersonagemField.getText(); // Obter o nome do campo de entrada
-        String classeNovoPersonagem = classePersonagemField.getText(); // Obter a classe do campo de entrada
-    
-        if (!nomeNovoPersonagem.isEmpty() && !classeNovoPersonagem.isEmpty()) {
-            // Lógica para adicionar um novo botão de personagem
-            Button novoBotaoPersonagem = new Button(nomeNovoPersonagem);
-            novoBotaoPersonagem.setOnAction(e -> abrirPaginaPersonagem(nomeNovoPersonagem, classeNovoPersonagem));
-    
-            personagensBox.getChildren().add(novoBotaoPersonagem); // Adicionar o botão ao HBox
-        } else {
-            // Exibir uma mensagem de erro se os campos estiverem vazios
-            // Você pode exibir uma mensagem de erro ou solicitar novamente ao usuário
-            // que insira as informações necessárias
-        }
-    }
-    
-
-    @FXML
-    private void abrirPaginaPersonagem(String nomePersonagem, String classePersonagem){
-         // Lógica para abrir a página do personagem com base no nome
-        
-        // Criar um novo conteúdo para a aba do personagem
-        Label conteudoAba = new Label("Conteúdo da página do personagem: " + nomePersonagem);
-
-        // Adicionar o conteúdo ao VBox (simulando a troca de abas)
-        tabContent.getChildren().clear(); // Limpa o VBox
-        tabContent.getChildren().add(conteudoAba); // Adiciona o conteúdo à VBox
-    
     }
 
 }

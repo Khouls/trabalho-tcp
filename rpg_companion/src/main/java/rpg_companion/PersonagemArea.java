@@ -147,13 +147,6 @@ public class PersonagemArea extends VBox {
         this.comboBoxClasse.setOnAction(event -> {
             this.personagem.setClasse(this.comboBoxClasse.getValue());
             this.atualizarSpinnersRecursos();
-
-            if (this.comboBoxClasse.getValue() == Classe.Combatente) {
-                this.campoNome.setVisible(false);
-            } else {
-                this.campoNome.setVisible(true);
-            }
-
         });
 
         // Setar NEX
@@ -314,5 +307,9 @@ public class PersonagemArea extends VBox {
             PoderCard cardPoder = (PoderCard) areaPoderes.getChildren().get(index);
             cardPoder.setIndex(index);
         }
+    }
+
+    public void atualizarTextoRolagens() {
+        this.textareaRolagens.setText(Ser.getHistoricoRolagens());
     }
 }
