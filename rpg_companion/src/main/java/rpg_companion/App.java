@@ -22,7 +22,7 @@ public class App extends Application {
         scene.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("RPG Companion");
-        stage.getIcons().add(new Image("file:rpg_companion\\src\\main\\resources\\rpg_companion\\icons\\icon.png"));
+        stage.getIcons().add(new Image(getClass().getResource("icons/d20.png").toExternalForm()));
         stage.show();
     }
 
