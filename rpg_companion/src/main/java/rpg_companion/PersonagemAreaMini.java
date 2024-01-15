@@ -44,76 +44,22 @@ public class PersonagemAreaMini extends VBox {
     private Personagem personagem;
 
     @FXML
-    private TextField campoNome;
+    private TextField nomePersonagemMiniLabel;
 
     @FXML
-    private Spinner<Integer> spinnerNex;
+    private ProgressBar vidaMiniBarra;
+
 
     @FXML
-    private ComboBox<Classe> comboBoxClasse;
+    private ProgressBar esforcoMiniBarra;
 
-    @FXML
-    private ProgressBar barraVida;
-
-    @FXML
-    private Spinner<Integer> spinnerVidaMax;
-
-    @FXML
-    private Spinner<Integer> spinnerVidaAtual;
-
-    @FXML
-    private ProgressBar barraEsforço;
-
-    @FXML
-    private Spinner<Integer> spinnerEsforçoMax;
-
-    @FXML
-    private Spinner<Integer> spinnerEsforçoAtual;
     
     @FXML
-    private ProgressBar barraSanidade;
+    private ProgressBar sanidadeMiniBarra;
 
-    @FXML
-    private Spinner<Integer> spinnerSanidadeMax;
 
-    @FXML
-    private Spinner<Integer> spinnerSanidadeAtual;
 
-    @FXML
-    private TextField campoForça;
 
-    @FXML
-    private TextField campoAgilidade;
-
-    @FXML
-    private TextField campoIntelecto;
-
-    @FXML
-    private TextField campoPresença;
-
-    @FXML
-    private TextField campoVigor;
-
-    @FXML
-    private TextField campoDefesa;
-
-    @FXML
-    private VBox areaPericias;
-
-    @FXML
-    private FlowPane areaItens;
-
-    @FXML
-    private Button botaoNovoItem;
-
-    @FXML
-    private FlowPane areaPoderes; 
-
-    @FXML
-    private Button botaoNovoPoder;
-    
-    @FXML
-    private TextArea textareaRolagens;
 
     public PersonagemAreaMini() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PersonagemAreaMini.fxml"));
@@ -131,83 +77,14 @@ public class PersonagemAreaMini extends VBox {
     @FXML
     public void setup(Personagem personagem) {
         this.personagem = personagem;
-        // Setar nome
-        this.campoNome.setText(this.personagem.getNome());
-        this.campoNome.setOnKeyTyped(event -> {
-            this.personagem.setNome(this.campoNome.getText());
-        });
+        this.nomePersonagemMiniLabel.setText(this.personagem.getNome());
 
-        // Setar classe
-        ArrayList<Classe> opcoesClasse = new ArrayList<Classe>();
-        for (Classe classe : Classe.values()) {
-            opcoesClasse.add(classe);
-        }
-        this.comboBoxClasse.setItems(FXCollections.observableList(opcoesClasse));
-        this.comboBoxClasse.setValue(this.personagem.getClasse());
-        this.comboBoxClasse.setOnAction(event -> {
-            this.personagem.setClasse(this.comboBoxClasse.getValue());
-            this.atualizarSpinnersRecursos();
-
-            if (this.comboBoxClasse.getValue() == Classe.Combatente) {
-                this.campoNome.setVisible(false);
-            } else {
-                this.campoNome.setVisible(true);
-            }
-
-        });
-
-        // Setar NEX
-        this.spinnerNex.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 99, 5));
-        this.spinnerNex.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            this.personagem.setNivelExposicao(Integer.parseInt(newValue));
-            this.atualizarSpinnersRecursos();
-        });
-
-  
         // Setar Recursos
-        conectarSpinnersRecurso(spinnerVidaAtual, spinnerVidaMax, barraVida, this.personagem.getPontosVida());
+        //conectarSpinnersRecurso(spinnerVidaAtual, spinnerVidaMax, barraVida, this.personagem.getPontosVida());
 
-        conectarSpinnersRecurso(spinnerSanidadeAtual, spinnerSanidadeMax, barraSanidade, this.personagem.getPontosSanidade());
+        //conectarSpinnersRecurso(spinnerSanidadeAtual, spinnerSanidadeMax, barraSanidade, this.personagem.getPontosSanidade());
         
-        conectarSpinnersRecurso(spinnerEsforçoAtual, spinnerEsforçoMax, barraEsforço, this.personagem.getPontosEsforço());
-
-        this.atualizarSpinnersRecursos();
-
-        // Setar Defesa
-        this.campoDefesa.setText(String.valueOf(this.personagem.getDefesa()));
-        this.campoDefesa.setOnKeyTyped(event -> {
-            int newValor;
-            try {
-                newValor = Integer.parseInt(this.campoDefesa.getText());
-                this.personagem.setDefesa(newValor);
-                this.atualizarSpinnersRecursos();
-            } catch (Exception e) {
-                campoDefesa.setText(String.valueOf(this.personagem.getDefesa()));
-            }
-        });
-
-        //Setar os atributos
-        conectarCampoAtributo(this.campoForça, Atributo.Força);
-        conectarCampoAtributo(this.campoAgilidade, Atributo.Agilidade);
-        conectarCampoAtributo(this.campoIntelecto, Atributo.Intelecto);
-        conectarCampoAtributo(this.campoPresença, Atributo.Presença);
-        conectarCampoAtributo(this.campoVigor, Atributo.Vigor);
-
-        // Construir a area de pericias
-        for (Pericia pericia : this.personagem.getPericias().keySet()) {
-           this.areaPericias.getChildren().add(criarContainerPericia(pericia));
-        }
-
-        // Setar o botão de adicionar Item
-        this.botaoNovoItem.setOnMouseClicked(event -> {
-            adicionarItem(new Item());
-        });
-
-        // Setar o botão de adicionar Item
-        this.botaoNovoPoder.setOnMouseClicked(event -> {
-            adicionarPoder(new Poder());
-        });
-
+        //conectarSpinnersRecurso(spinnerEsforçoAtual, spinnerEsforçoMax, barraEsforço, this.personagem.getPontosEsforço());
 
     }
 
@@ -229,22 +106,9 @@ public class PersonagemAreaMini extends VBox {
         barraRecurso.setProgress(recurso.getProporçao());
 
     }
+    
 
-    private void conectarCampoAtributo(TextField campo, Atributo atributo) {
-        campo.setText(this.personagem.getAtributos().get(atributo).toString());
-        campo.setOnKeyTyped(event -> {
-            int newValor;
-            try {
-                newValor = Integer.parseInt(campo.getText());
-                this.personagem.setAtributo(atributo, newValor);
-                this.atualizarSpinnersRecursos();
-            } catch (Exception e) {
-                campo.setText(this.personagem.getAtributos().get(atributo).toString());
-            }
-
-        });
-    }
-
+     /* 
     private void atualizarSpinnersRecursos() {
         this.spinnerVidaAtual.getValueFactory().setValue(this.personagem.getPontosVida().getValorAtual());
 
@@ -258,61 +122,12 @@ public class PersonagemAreaMini extends VBox {
         
         this.spinnerEsforçoMax.getValueFactory().setValue(this.personagem.getPontosEsforço().getValorMaximo());
 
-    }
+    } */
 
-    private PericiaBox criarContainerPericia(Pericia pericia) {
-        PericiaBox boxPericia = new PericiaBox();
-        boxPericia.setup(this.personagem, pericia, event -> {
-            try {
-                this.personagem.fazerTeste(pericia);
-                textareaRolagens.setText(Ser.getHistoricoRolagens());
-            } catch (InvalidKeyException e) {
-                System.out.println("Pericia Inválida:" + pericia);
-            }
-        });
 
-        return boxPericia;
-    }
 
-    private void adicionarItem (Item item) {
-        ItemCard cardItem = new ItemCard();
-        // Adicionar o item no penultimo local
-        int index = this.areaItens.getChildren().size() - 1;
 
-        cardItem.setup(item, index, event -> {
-            this.areaItens.getChildren().remove(cardItem.getIndex());
-            this.atualizarIndicesItens();
-        });
 
-        this.areaItens.getChildren().add(index, cardItem);        
-    }
 
-    private void adicionarPoder (Poder poder) {
-        PoderCard cardPoder = new PoderCard();
-        // Adicionar o item no penultimo local
-        int index = this.areaPoderes.getChildren().size() - 1;
 
-        cardPoder.setup(poder, index, event -> {
-            this.areaPoderes.getChildren().remove(cardPoder.getIndex());
-            this.atualizarIndicesPoderes();
-        });
-
-        this.areaPoderes.getChildren().add(index, cardPoder);        
-    }
-
-    private void atualizarIndicesItens() {
-        // Passar até o penúltimo atualizando os indices
-        for (int index = 0; index < areaItens.getChildren().size() - 1; index++) {
-            ItemCard cardItem = (ItemCard) areaItens.getChildren().get(index);
-            cardItem.setIndex(index);
-        }
-    }
-
-    private void atualizarIndicesPoderes() {
-        // Passar até o penúltimo atualizando os indices
-        for (int index = 0; index < areaPoderes.getChildren().size() - 1; index++) {
-            PoderCard cardPoder = (PoderCard) areaPoderes.getChildren().get(index);
-            cardPoder.setIndex(index);
-        }
-    }
 }
