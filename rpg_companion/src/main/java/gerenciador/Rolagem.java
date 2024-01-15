@@ -59,10 +59,10 @@ public class Rolagem {
             // Seleciona o maior valor para o resultado final
             rolagemCompleta.resultadoFinal = valorFinal;
         } else {
-            // Se não, jogar 2+qtDados e pegar o menor
+            // Se não, jogar 2-qtDados e pegar o menor
             valorFinal = Integer.MAX_VALUE;
 
-            for (int  i = 0; i < qtDados+2; i++) {
+            for (int  i = 0; i < 2-qtDados; i++) {
                 // Gera um numero de 1 ate 20
                 int resultado = randomGen.nextInt(20) + 1;
 
