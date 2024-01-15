@@ -20,7 +20,6 @@ public class Personagem extends Ser {
         this.classe = classe;
         this.setDefesa(Classe.DEFESA_BASE + this.atributos.get(Atributo.Agilidade));
         this.nivelExposicao = Classe.NEX_INICIAL;
-        this.pontosVida = new Recurso();
         this.pontosEsforço = new Recurso();
         this.pontosSanidade = new Recurso();
 
@@ -65,27 +64,27 @@ public class Personagem extends Ser {
         this.atualizaValoresNoNivel();
     }
 
-    public void adicionaItem(Item item) {
+    public void adicionarItem(Item item) {
         this.inventario.add(item);
     }
 
-    public void adicionaItem(Item item, int index) {
+    public void adicionarItem(Item item, int index) {
         this.inventario.add(index, item);
     }
 
-    public void removeItem(int index) {
+    public void removerItem(int index) {
         this.inventario.remove(index);
     }
 
-    public void adicionaPoder(Poder poder) {
+    public void adicionarPoder(Poder poder) {
         this.poderes.add(poder);
     }
 
-    public void adicionaPoder(Poder poder, int index) {
+    public void adicionarPoder(Poder poder, int index) {
         this.poderes.add(index, poder);
     }
 
-    public void removePoder(int index) {
+    public void removerPoder(int index) {
         this.poderes.remove(index);
     }
 

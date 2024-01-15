@@ -83,9 +83,9 @@
                                  </font>
                               </Text>
                               <Spinner fx:id="spinnerVidaAtual" editable="true" layoutX="14.0" layoutY="109.0" prefHeight="25.0" prefWidth="59.0" />
-                              <Text layoutX="86.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
+                              <Text fill="WHITE" layoutX="86.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="Quicksand-Bold" size="18.0" />
                                  </font>
                               </Text>
                               <Spinner fx:id="spinnerVidaMax" editable="true" layoutX="104.0" layoutY="109.0" prefHeight="25.0" prefWidth="59.0" />
@@ -96,9 +96,9 @@
                                  </font>
                               </Text>
                               <Spinner fx:id="spinnerSanidadeAtual" editable="true" layoutX="14.0" layoutY="181.0" prefHeight="25.0" prefWidth="59.0" />
-                              <Text layoutX="86.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
+                              <Text fill="WHITE" layoutX="86.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="Quicksand-Bold" size="18.0" />
                                  </font>
                               </Text>
                               <Spinner fx:id="spinnerSanidadeMax" editable="true" layoutX="104.0" layoutY="181.0" prefHeight="25.0" prefWidth="59.0" />
@@ -109,9 +109,9 @@
                                  </font>
                               </Text>
                               <Spinner fx:id="spinnerEsforçoAtual" editable="true" layoutX="15.0" layoutY="252.0" prefHeight="25.0" prefWidth="59.0" />
-                              <Text layoutX="86.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
+                              <Text fill="WHITE" layoutX="86.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="Quicksand-Bold" size="18.0" />
                                  </font>
                               </Text>
                               <Spinner fx:id="spinnerEsforçoMax" editable="true" layoutX="105.0" layoutY="252.0" prefHeight="25.0" prefWidth="59.0" />
@@ -129,7 +129,13 @@
                               <Spinner fx:id="spinnerNex" editable="true" layoutX="244.0" layoutY="49.0" prefHeight="25.0" prefWidth="59.0" />
                            </children>
                         </Pane>
-                        <TextArea fx:id="textareaRolagens" editable="false" prefWidth="368.0" VBox.vgrow="ALWAYS" />
+                        <TextArea fx:id="textareaRolagens" editable="false" prefHeight="235.0" prefWidth="383.0" VBox.vgrow="ALWAYS" />
+                        <HBox>
+                           <children>
+                              <TextField fx:id="campoRolagemCustom" promptText="Rolagem Customizada (Ex: 2d6+3)" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="botaoRolagemCustom" mnemonicParsing="false" prefHeight="17.0" prefWidth="32.0" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>

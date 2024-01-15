@@ -112,7 +112,7 @@
                               <Label fx:id="seletorTipoLabel" text="Label" textFill="RED" />
                               <TextField fx:id="nomePersonagemCriadorTextField" prefHeight="16.0" prefWidth="155.0" promptText="Nome do Personagem" />
                               <ComboBox fx:id="classePersonagemCriadorComboBox" prefHeight="17.0" prefWidth="178.0" VBox.vgrow="NEVER" />
-                              <Button fx:id="adicionaPersonagemBotao" mnemonicParsing="false" onAction="#adicionaPersonagem" text="Adiciona" />
+                              <Button fx:id="adicionaPersonagemBotao" mnemonicParsing="false" onAction="#adicionaSer" text="Adiciona" />
                            </children>
                         </VBox>
                         <Separator layoutX="133.0" layoutY="13.0" orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: red;" />

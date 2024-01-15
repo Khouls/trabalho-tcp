@@ -3,32 +3,25 @@ package rpg_companion;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 
 import java.net.URL;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.SubScene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import seres.Atributo;
 import seres.Pericia;
+import seres.ameacas.Ameaca;
 import seres.personagens.Classe;
 import seres.personagens.Personagem;
-import seres.Ser;
 
 import java.io.IOException;
 
@@ -105,22 +98,45 @@ public class PrimaryController implements Initializable {
     }
    
 
+
     @FXML
-    private void adicionaPersonagem() {
-        // Cria um personagem temporário, utilizando os valores nas caixas de texto, e insere no gerenciador
-        // Então cria uma nova tab para o personagem
+    private void adicionaSer() {
+        // Cria um ser temporário, utilizando os valores nas caixas de texto, e insere no gerenciador
+        // Então cria uma nova tab para o ser
+        final boolean personagemSelecionado = this.seletorTipoChoiceBox.getValue() == "Personagem";
+        // TODO: Refatorar isso para usar SerArea<Personagem> ou SerArea<Ameaca>
+        if (personagemSelecionado) {
+            Personagem personagemTemporario = new Personagem(nomePersonagemCriadorTextField.getText(), classePersonagemCriadorComboBox.getValue());
+            PersonagemArea personagemTemporarioControler = new PersonagemArea();
+            
+            gerenciador.adicionaSer(personagemTemporario);
+            personagemTemporarioControler.setup(personagemTemporario);
 
-        Personagem personagemTemporario = new Personagem(nomePersonagemCriadorTextField.getText(), classePersonagemCriadorComboBox.getValue());
-        gerenciador.adicionaSer(personagemTemporario);
-        PersonagemArea personagemTemporarioControler = new PersonagemArea();
-        personagemTemporarioControler.setup(personagemTemporario);
-        this.personagemArea.getChildren().addAll(personagemTemporarioControler);
+            this.personagemArea.getChildren().addAll(personagemTemporarioControler);
+            Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), personagemTemporarioControler);
+            tab.setOnSelectionChanged(event -> {
+                personagemTemporarioControler.atualizarTextoRolagens();
+            });
+            tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
+        } else {
+            Ameaca ameacaTemporaria = new Ameaca(nomePersonagemCriadorTextField.getText());
+            AmeacaArea ameacaTemporariaArea = new AmeacaArea();
+            
+            gerenciador.adicionaSer(ameacaTemporaria);
+            ameacaTemporariaArea.setup(ameacaTemporaria);
+            
+            this.personagemArea.getChildren().addAll(ameacaTemporariaArea);
+            Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), ameacaTemporariaArea);
+            tab.setOnSelectionChanged(event -> {
+                ameacaTemporariaArea.atualizarTextoRolagens();
+            });
+            tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
 
-        Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), personagemTemporarioControler);
-        tab.setOnSelectionChanged(event -> {
-            personagemTemporarioControler.atualizarTextoRolagens();
-        });
-        tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
+        }
+
+
+
+
     }
 
     public void getTipoDeSer(ActionEvent event){
