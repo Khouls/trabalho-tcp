@@ -19,7 +19,7 @@ public class TesteGerenciador {
 
     @BeforeEach
     // Cria um gerenciador vazio
-    public void inicializaGerenciador() {
+    public void inicializarGerenciador() {
         this.gerenciador = new GerenciadorSessao();
     }
 

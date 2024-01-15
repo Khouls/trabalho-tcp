@@ -1,11 +1,8 @@
 package seres.personagens;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.InvalidKeyException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,9 +10,6 @@ import org.junit.jupiter.api.Test;
 import gerenciador.Rolagem;
 import seres.Atributo;
 import seres.Pericia;
-import seres.ameacas.Ameaca;
-import seres.personagens.Classe;
-import seres.personagens.Personagem;
 
 
 public class TestePersonagem {
@@ -23,7 +17,7 @@ public class TestePersonagem {
 
     @BeforeEach
     // Cria um personagem para testes
-    public void inicializaGerenciador() {
+    public void inicializarPersonagem() {
         this.personagem = new Personagem("John Paranormal", Classe.Ocultista);
 
         // Define alguns atributos
