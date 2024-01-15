@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -47,7 +48,14 @@ public class PrimaryController implements Initializable {
         paranormalController.setup(JohnParanormal);
         
         this.personagemArea.getChildren().addAll(paranormalController);
+
+                // Criador de persnagem ou criatura
+                SeletorTipoChoiceBox.getItems().addAll(TiposDeSer);
+                SeletorTipoChoiceBox.setOnAction(this::getTipoDeSer);
     }
+
+    @FXML
+    private TabPane tabelaPrincipal; // Tabs no topo da tela
 
     @FXML
     private VBox personagemArea;
@@ -66,6 +74,42 @@ public class PrimaryController implements Initializable {
 
     private int contadorPersonagens = 1; // Contador para identificar cada personagem
 
+    private String[] TiposDeSer = {"Personagem", "Criatura"};
+   
+    // Seleciona se vai ser criado personagem ou criatura
+    @FXML
+    private ChoiceBox<String> SeletorTipoChoiceBox;
+
+    @FXML
+    private Label SeletorTipoLabel;
+
+        
+    // Inputs de texto do criador de personagem
+
+    @FXML
+    private TextField NomePersonagemCriadorTextField;
+    @FXML
+    private TextField ClassePersonagemCriadorTextField;
+
+    @FXML
+    private void adicionaPersonagem() {
+        // Cria um personagem temporário, utilizando os valores nas caixas de texto, e insere no gerenciador
+        // Então cria uma nova tab para o personagem
+
+        Personagem PersonagemTemporario = new Personagem(NomePersonagemCriadorTextField.getText(), Classe.Ocultista);
+        gerenciador.adicionaSer(PersonagemTemporario);
+        PersonagemArea PersonagemTemporarioControler = new PersonagemArea();
+        PersonagemTemporarioControler.setup(PersonagemTemporario);
+        this.personagemArea.getChildren().addAll(PersonagemTemporarioControler);
+
+        Tab tab = new Tab(NomePersonagemCriadorTextField.getText(), PersonagemTemporarioControler);
+        tabelaPrincipal.getTabs().add(tab);
+    }
+
+    public void getTipoDeSer(ActionEvent event){
+        String tipoDeSer = SeletorTipoChoiceBox.getValue();
+        SeletorTipoLabel.setText(tipoDeSer);
+    }
 
     @FXML
     private void switchToSecondary() throws IOException {
