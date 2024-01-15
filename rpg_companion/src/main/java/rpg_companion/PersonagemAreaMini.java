@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
 
-
+import gerenciador.Rolagem;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -29,6 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 import seres.Atributo;
 import seres.Pericia;
 import seres.Recurso;
@@ -38,24 +39,24 @@ import seres.personagens.Item;
 import seres.personagens.Personagem;
 import seres.personagens.Poder;
 
+
 public class PersonagemAreaMini extends VBox {
     private static final int ALTURA_CONTAINER = 43;
 
     private Personagem personagem;
 
     @FXML
-    private TextField nomePersonagemMiniLabel;
+    private Label nomePersonagemMiniLabel;
 
     @FXML
     private ProgressBar vidaMiniBarra;
 
 
     @FXML
-    private ProgressBar esforcoMiniBarra;
-
-    
-    @FXML
     private ProgressBar sanidadeMiniBarra;
+
+    @FXML
+    private ProgressBar esforcoMiniBarra;
 
 
 
@@ -78,36 +79,22 @@ public class PersonagemAreaMini extends VBox {
     public void setup(Personagem personagem) {
         this.personagem = personagem;
         this.nomePersonagemMiniLabel.setText(this.personagem.getNome());
-
-        // Setar Recursos
-        //conectarSpinnersRecurso(spinnerVidaAtual, spinnerVidaMax, barraVida, this.personagem.getPontosVida());
-
-        //conectarSpinnersRecurso(spinnerSanidadeAtual, spinnerSanidadeMax, barraSanidade, this.personagem.getPontosSanidade());
-        
-        //conectarSpinnersRecurso(spinnerEsforçoAtual, spinnerEsforçoMax, barraEsforço, this.personagem.getPontosEsforço());
+        this.vidaMiniBarra.setProgress(personagem.getPontosVida().getProporçao());
 
     }
 
-    private void conectarSpinnersRecurso(Spinner<Integer> spinnerValorAtual, Spinner<Integer> spinnerValorMaximo, ProgressBar barraRecurso, Recurso recurso) {
-        spinnerValorAtual.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
 
-        spinnerValorAtual.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            recurso.setValorAtual(Integer.parseInt(newValue));
-            barraRecurso.setProgress(recurso.getProporçao());
-        });
-
-        spinnerValorMaximo.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));
-
-        spinnerValorMaximo.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            recurso.setValorMaximo(Integer.parseInt(newValue));
-            barraRecurso.setProgress(this.personagem.getPontosEsforço().getProporçao());
-        });
-
-        barraRecurso.setProgress(recurso.getProporçao());
-
+    public void atualizaMini(){
+        this.nomePersonagemMiniLabel.setText(this.personagem.getNome());
+        this.vidaMiniBarra.setProgress(this.personagem.getPontosVida().getProporçao());
+        this.sanidadeMiniBarra.setProgress(this.personagem.getPontosSanidade().getProporçao());
+        this.esforcoMiniBarra.setProgress(this.personagem.getPontosEsforço().getProporçao());
     }
+
     
 
+
+    
      /* 
     private void atualizarSpinnersRecursos() {
         this.spinnerVidaAtual.getValueFactory().setValue(this.personagem.getPontosVida().getValorAtual());

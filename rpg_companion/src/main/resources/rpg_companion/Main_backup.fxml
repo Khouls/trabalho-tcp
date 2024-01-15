@@ -38,7 +38,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -51,31 +50,13 @@
 
 <VBox minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rpg_companion.PrimaryController">
   <children>
-      <TabPane fx:id="tabelaPrincipal" prefHeight="0.0" stylesheets="@stylesheet.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="40.0" tabMinWidth="40.0" VBox.vgrow="ALWAYS">
+      <TabPane fx:id="tabelaPrincipal" prefHeight="0.0" stylesheets="@stylesheet.css" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="40.0" tabMinHeight="40.0" VBox.vgrow="ALWAYS">
         <tabs>
           <Tab closable="false" text="Main">
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FF0000;">
                      <children>
-                        <FlowPane hgap="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="559.0" prefWidth="798.0" vgap="3.0">
-                           <children>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-border-width: 5; -fx-border-color: black;">
-                                 <children>
-                                    <Label text="Nome">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Vida" />
-                                    <ProgressBar prefWidth="200.0" progress="0.0" />
-                                    <Label text="Sanidade" />
-                                    <ProgressBar prefWidth="200.0" progress="0.0" />
-                                    <Label text="Esforço" />
-                                    <ProgressBar prefWidth="200.0" progress="0.0" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </FlowPane>
+                        <FlowPane fx:id="cardMiniFlowPane" hgap="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="559.0" prefWidth="798.0" vgap="3.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -97,7 +78,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="seletorTipoChoiceBox" prefWidth="150.0" />
+                              <ChoiceBox fx:id="SeletorTipoChoiceBox" prefWidth="150.0" />
                            </children>
                            <opaqueInsets>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -109,10 +90,10 @@
                         <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: red;" />
                         <VBox alignment="TOP_CENTER" prefHeight="741.0" prefWidth="166.0" spacing="10.0">
                            <children>
-                              <Label fx:id="seletorTipoLabel" text="Label" textFill="RED" />
-                              <TextField fx:id="nomePersonagemCriadorTextField" prefHeight="16.0" prefWidth="155.0" promptText="Nome do Personagem" />
-                              <ComboBox fx:id="classePersonagemCriadorComboBox" prefHeight="17.0" prefWidth="178.0" VBox.vgrow="NEVER" />
-                              <Button fx:id="adicionaPersonagemBotao" mnemonicParsing="false" onAction="#adicionaSer" text="Adiciona" />
+                              <Label fx:id="SeletorTipoLabel" text="Label" textFill="RED" />
+                              <TextField fx:id="NomePersonagemCriadorTextField" promptText="Nome do Personagem" />
+                              <ComboBox fx:id="ClassePersonagemCriadorComboBox" prefHeight="26.0" prefWidth="167.0" promptText="Classe do Personagem" />
+                              <Button fx:id="adicionaPersonagemBotao" mnemonicParsing="false" onAction="#adicionaPersonagem" text="Adiciona" />
                            </children>
                         </VBox>
                         <Separator layoutX="133.0" layoutY="13.0" orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: red;" />

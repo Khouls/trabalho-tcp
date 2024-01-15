@@ -12,11 +12,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.Node;
 import seres.Atributo;
 import seres.Pericia;
 import seres.ameacas.Ameaca;
@@ -61,6 +64,9 @@ public class PrimaryController implements Initializable {
     @FXML
     private ComboBox<Classe> classePersonagemCriadorComboBox;
 
+     @FXML
+    private FlowPane cardMiniFlowPane;
+
     @FXML @Override
     public void initialize(URL location, ResourceBundle resources) {
         Personagem JohnParanormal = new Personagem("John Paranormal", Classe.Ocultista);
@@ -95,6 +101,11 @@ public class PrimaryController implements Initializable {
         }
         this.classePersonagemCriadorComboBox.setItems(FXCollections.observableList(opcoesClasse));
         this.classePersonagemCriadorComboBox.setValue(Classe.Combatente);
+
+        PersonagemAreaMini johnMiniController = new PersonagemAreaMini();
+        johnMiniController.setup(JohnParanormal);
+
+        this.cardMiniFlowPane.getChildren().addAll(johnMiniController);
     }
    
 
@@ -118,6 +129,11 @@ public class PrimaryController implements Initializable {
                 personagemTemporarioControler.atualizarTextoRolagens();
             });
             tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
+
+            PersonagemAreaMini tempMiniController = new PersonagemAreaMini();
+            tempMiniController.setup(personagemTemporario);
+            this.cardMiniFlowPane.getChildren().addAll(tempMiniController);
+
         } else {
             Ameaca ameacaTemporaria = new Ameaca(nomePersonagemCriadorTextField.getText());
             AmeacaArea ameacaTemporariaArea = new AmeacaArea();
@@ -132,12 +148,22 @@ public class PrimaryController implements Initializable {
             });
             tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
 
+
         }
 
 
 
 
     }
+
+    @FXML
+    public void updateFlowPane(){
+        for (Node node : cardMiniFlowPane.getChildren()) {
+            PersonagemAreaMini cardMini = (PersonagemAreaMini) node;
+            cardMini.atualizaMini();
+        }
+    }
+
 
     public void getTipoDeSer(ActionEvent event){
         String tipoDeSer = seletorTipoChoiceBox.getValue();

@@ -1,7 +1,6 @@
 package seres.personagens;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.security.InvalidKeyException;
 
 import org.junit.jupiter.api.BeforeEach;
