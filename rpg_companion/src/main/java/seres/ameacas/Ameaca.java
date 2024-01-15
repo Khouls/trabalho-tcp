@@ -13,6 +13,8 @@ public class Ameaca extends Ser {
     public Ameaca(String nome) {
         super(nome);
         this.valorDificuldade = 0;
+        this.habilidades = new ArrayList<Habilidade>();
+
     }
     
     @Override
@@ -25,15 +27,15 @@ public class Ameaca extends Ser {
         this.pericias.put(Pericia.Vontade, 0);
     }
 
-    public void adicionaHabilidade(Habilidade habilidade) {
+    public void adicionarHabilidade(Habilidade habilidade) {
         this.habilidades.add(habilidade);
     }
 
-    public void adicionaHabilidade(Habilidade habilidade, int index) {
+    public void adicionarHabilidade(Habilidade habilidade, int index) {
         this.habilidades.add(index, habilidade);
     }
 
-    public void removeHabilidade(int index) {
+    public void removerHabilidade(int index) {
         this.habilidades.remove(index);
     }
 

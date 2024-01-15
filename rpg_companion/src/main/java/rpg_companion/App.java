@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,9 +18,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        scene.getStylesheets().add("file:./src/main/resources/rpg_companion/stylesheet.css");
+        scene = new Scene(loadFXML("Main"), 1200, 800);
+        scene.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
         stage.setScene(scene);
+        stage.setTitle("RPG Companion");
+        stage.getIcons().add(new Image(getClass().getResource("icons/d20.png").toExternalForm()));
         stage.show();
     }
 

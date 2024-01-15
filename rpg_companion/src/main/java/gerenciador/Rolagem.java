@@ -6,6 +6,7 @@ import java.util.Random;
 public class Rolagem {
     private int resultadoFinal;
     private ArrayList<Integer> resultados;
+    private int modificador;
 
     // *Consultar o professor
     private Rolagem() {
@@ -31,6 +32,7 @@ public class Rolagem {
 
         // Soma o modificador no final
         rolagemCompleta.resultadoFinal += modificador;
+        rolagemCompleta.modificador = modificador;
         
         return rolagemCompleta;
     }
@@ -59,10 +61,10 @@ public class Rolagem {
             // Seleciona o maior valor para o resultado final
             rolagemCompleta.resultadoFinal = valorFinal;
         } else {
-            // Se não, jogar 2+qtDados e pegar o menor
+            // Se não, jogar 2-qtDados e pegar o menor
             valorFinal = Integer.MAX_VALUE;
 
-            for (int  i = 0; i < qtDados+2; i++) {
+            for (int  i = 0; i < 2-qtDados; i++) {
                 // Gera um numero de 1 ate 20
                 int resultado = randomGen.nextInt(20) + 1;
 
@@ -81,6 +83,8 @@ public class Rolagem {
                 
         // Soma o modificador no final
         rolagemCompleta.resultadoFinal += modificador;
+
+        rolagemCompleta.modificador = modificador;
         return rolagemCompleta;
     }
 
@@ -92,5 +96,9 @@ public class Rolagem {
 
     public int getResultadoFinal() {
         return this.resultadoFinal;
+    }
+
+    public int getModificador() {
+        return this.modificador;
     }
 }

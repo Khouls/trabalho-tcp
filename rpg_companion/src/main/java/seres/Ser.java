@@ -32,6 +32,9 @@ public abstract class Ser {
         // Inicializar as pericias
         inicializarPericias();
 
+        // Inicializar vida
+        this.pontosVida = new Recurso();
+
     };
 
     protected abstract void inicializarPericias();
