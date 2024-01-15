@@ -50,9 +50,6 @@ public class PrimaryController implements Initializable {
     @FXML
     private VBox tabContent; // VBox para conter o conteúdo das abas dos personagens
 
-    @FXML
-    private TextField nomePersonagemField;
-
     private String[] tiposDeSer = {"Personagem", "Criatura"};
 
     // Seleciona se vai ser criado personagem ou criatura

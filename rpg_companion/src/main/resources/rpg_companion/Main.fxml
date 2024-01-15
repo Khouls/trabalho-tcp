@@ -51,7 +51,7 @@
 
 <VBox minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rpg_companion.PrimaryController">
   <children>
-      <TabPane fx:id="tabelaPrincipal" prefHeight="0.0" stylesheets="@stylesheet.css" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="40.0" tabMinHeight="40.0" VBox.vgrow="ALWAYS">
+      <TabPane fx:id="tabelaPrincipal" prefHeight="0.0" stylesheets="@stylesheet.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="40.0" tabMinWidth="40.0" VBox.vgrow="ALWAYS">
         <tabs>
           <Tab closable="false" text="Main">
                <content>
