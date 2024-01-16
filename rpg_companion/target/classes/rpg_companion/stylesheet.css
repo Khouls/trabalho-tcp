@@ -1,0 +1,62 @@
+  
+.background {
+    -fx-background-color:  #212121;
+    -fx-border-color: #020202;
+}
+
+.text-foreground  {
+    -fx-text-fill: #f0f0f0;
+    color: #f0f0f0;
+}
+
+.text-highlight  {
+    -fx-text-fill: #F5D03D;
+    color: #F5D03D;
+
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #0c0c0c;
+}
+
+.tab {
+    -fx-background-color: #0f0f0f;
+    -fx-padding: 1 8;
+}
+
+.tab-label {
+    -fx-text-fill: #f0f0f0;
+    /*-fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-alignment: center;*/
+    -fx-font-size: 15px;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: 1px;
+    -fx-border-color: #F5D03D;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: #212121;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected  .tab-label{
+    -fx-text-fill: #F5D03D;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+ }
+
+ .button-action {
+    -fx-background-radius: 10px;
+ }
+
+ .button-action:hover {
+   -fx-effect: innershadow(gaussian, rgba(255,255,255,0.2), 127, 127, 0, 0)
+ }
+
+ .button-action:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 127, 127, 0, 0)
+  }

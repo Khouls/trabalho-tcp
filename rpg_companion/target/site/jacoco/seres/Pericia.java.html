@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pericia.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rpg_companion</a> &gt; <a href="index.source.html" class="el_package">seres</a> &gt; <span class="el_source">Pericia.java</span></div><h1>Pericia.java</h1><pre class="source lang-java linenums">package seres;
+
+<span class="fc" id="L3">public enum Pericia {</span>
+<span class="fc" id="L4">    Acrobacia(Atributo.Agilidade),</span>
+<span class="fc" id="L5">    Adestramento(Atributo.Presença),</span>
+<span class="fc" id="L6">    Artes(Atributo.Presença),</span>
+<span class="fc" id="L7">    Atletismo(Atributo.Força),</span>
+<span class="fc" id="L8">    Atualidades(Atributo.Intelecto),</span>
+<span class="fc" id="L9">    Ciências(Atributo.Intelecto),</span>
+<span class="fc" id="L10">    Crime(Atributo.Agilidade),</span>
+<span class="fc" id="L11">    Diplomacia(Atributo.Presença),</span>
+<span class="fc" id="L12">    Enganação(Atributo.Presença),</span>
+<span class="fc" id="L13">    Fortitude(Atributo.Vigor),</span>
+<span class="fc" id="L14">    Furtividade(Atributo.Agilidade),</span>
+<span class="fc" id="L15">    Iniciativa(Atributo.Agilidade),</span>
+<span class="fc" id="L16">    Intimidação(Atributo.Agilidade),</span>
+<span class="fc" id="L17">    Intuição(Atributo.Intelecto),</span>
+<span class="fc" id="L18">    Investigação(Atributo.Intelecto),</span>
+<span class="fc" id="L19">    Luta(Atributo.Força),</span>
+<span class="fc" id="L20">    Medicina(Atributo.Intelecto),</span>
+<span class="fc" id="L21">    Ocultismo(Atributo.Intelecto),</span>
+<span class="fc" id="L22">    Percepção(Atributo.Presença),</span>
+<span class="fc" id="L23">    Pilotagem(Atributo.Agilidade),</span>
+<span class="fc" id="L24">    Pontaria(Atributo.Agilidade),</span>
+<span class="fc" id="L25">    Profissão(Atributo.Intelecto),</span>
+<span class="fc" id="L26">    Reflexos(Atributo.Agilidade),</span>
+<span class="fc" id="L27">    Religião(Atributo.Presença),</span>
+<span class="fc" id="L28">    Sobrevivência(Atributo.Intelecto),</span>
+<span class="fc" id="L29">    Tática(Atributo.Intelecto),</span>
+<span class="fc" id="L30">    Tecnologia(Atributo.Intelecto),</span>
+<span class="fc" id="L31">    Vontade(Atributo.Presença);</span>
+
+    private final Atributo atributoBase;
+
+<span class="fc" id="L35">    private Pericia(Atributo atributoBase) {</span>
+<span class="fc" id="L36">        this.atributoBase = atributoBase;</span>
+<span class="fc" id="L37">    }</span>
+
+    public Atributo atributoBase() {
+<span class="fc" id="L40">        return this.atributoBase;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

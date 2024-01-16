@@ -2,15 +2,8 @@ package seres;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.security.InvalidKeyException;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import gerenciador.Rolagem;
-import seres.Atributo;
-import seres.Pericia;
-
 
 public class TesteRecurso {
     private Recurso recurso;

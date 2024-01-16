@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rpg_companion</a> &gt; <a href="index.source.html" class="el_package">seres</a> &gt; <span class="el_source">Ser.java</span></div><h1>Ser.java</h1><pre class="source lang-java linenums">package seres;
+
+import java.security.InvalidKeyException;
+import java.util.ArrayList;
+import java.util.EnumMap;
+
+import gerenciador.Rolagem;
+
+public abstract class Ser {
+    private String nome;
+    protected Recurso pontosVida;
+    private int defesa;
+
+    protected EnumMap&lt;Pericia, Integer&gt; pericias;
+    protected EnumMap&lt;Atributo, Integer&gt; atributos;
+
+<span class="fc" id="L17">    protected static String historicoRolagens = &quot;&quot;;</span>
+
+<span class="fc" id="L19">    private final int VALOR_INICIAL_ATRIBUTOS = 0;</span>
+
+<span class="fc" id="L21">    public Ser(String nome) {</span>
+<span class="fc" id="L22">        this.nome = nome;</span>
+<span class="fc" id="L23">        this.defesa = 0;</span>
+<span class="fc" id="L24">        this.pericias = new EnumMap&lt;&gt;(Pericia.class);</span>
+<span class="fc" id="L25">        this.atributos = new EnumMap&lt;&gt;(Atributo.class);</span>
+
+        // Inicializar todos os atributos
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        for (Atributo atributo : Atributo.values()) {</span>
+<span class="fc" id="L29">            this.atributos.put(atributo, VALOR_INICIAL_ATRIBUTOS);</span>
+        }
+
+        // Inicializar as pericias
+<span class="fc" id="L33">        inicializarPericias();</span>
+
+        // Inicializar vida
+<span class="fc" id="L36">        this.pontosVida = new Recurso();</span>
+
+<span class="fc" id="L38">    };</span>
+
+    protected abstract void inicializarPericias();
+
+    private void adicionaAoHistorico(String nomeRolado, int modificador, Rolagem rolagem) {
+        // [Personagem|Pericia] : 20 [10, 20, 4] (+2)
+<span class="fc" id="L44">        historicoRolagens += String.format(&quot;[%s|%s]&quot;, this.nome, nomeRolado);</span>
+<span class="fc" id="L45">        historicoRolagens += String.format(&quot; : %d %s&quot;, rolagem.getResultadoFinal(), rolagem.getResultados());</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        historicoRolagens += String.format(&quot;(%d%s%d)\n&quot;, rolagem.getResultadoFinal()-modificador, modificador &gt;= 0 ? &quot;+&quot; : &quot;&quot;, modificador);</span>
+
+<span class="fc" id="L48">    }</span>
+
+    public Rolagem fazerTeste(Pericia pericia) throws InvalidKeyException {
+<span class="fc" id="L51">        int qtDados = this.atributos.get(pericia.atributoBase());</span>
+<span class="fc" id="L52">        int modificador = pericias.get(pericia);</span>
+
+<span class="fc" id="L54">        Rolagem rolagem = Rolagem.rolarTeste(qtDados, modificador);</span>
+<span class="fc" id="L55">        adicionaAoHistorico(pericia.name(), modificador, rolagem);</span>
+
+<span class="fc" id="L57">        return rolagem;</span>
+
+    }
+
+    public Rolagem fazerTeste(Atributo atributo) {
+<span class="fc" id="L62">        Rolagem rolagem = Rolagem.rolarTeste(this.atributos.get(atributo), 0);</span>
+<span class="fc" id="L63">        adicionaAoHistorico(atributo.name(), 0, rolagem);</span>
+
+<span class="fc" id="L65">        return rolagem;</span>
+        
+    }
+
+    public Rolagem rodarDados(int numFaces, int qtDados,  int modificador) {
+<span class="nc" id="L70">        Rolagem rolagem = Rolagem.rolarDados(numFaces, qtDados, modificador);</span>
+<span class="nc" id="L71">        adicionaAoHistorico(String.format(&quot;%dd%d+%d&quot;, qtDados, numFaces, modificador), 0, rolagem);</span>
+
+<span class="nc" id="L73">        return rolagem;</span>
+    }
+
+    public String getNome() {
+<span class="fc" id="L77">        return this.nome;</span>
+    }
+
+    public void setNome(String nome) {
+<span class="fc" id="L81">        this.nome = nome;</span>
+<span class="fc" id="L82">    }</span>
+
+    public Recurso getPontosVida() {
+<span class="nc" id="L85">        return this.pontosVida;</span>
+    }
+
+    public int getDefesa() {
+<span class="nc" id="L89">        return this.defesa;</span>
+    }
+
+    public void setDefesa(int defesa) {
+<span class="fc" id="L93">        this.defesa = defesa;</span>
+<span class="fc" id="L94">    }</span>
+
+    public EnumMap&lt;Pericia, Integer&gt; getPericias() {
+<span class="fc" id="L97">        return new EnumMap&lt;&gt;(this.pericias);</span>
+    }
+
+    public EnumMap&lt;Atributo, Integer&gt; getAtributos() {
+<span class="fc" id="L101">        return new EnumMap&lt;Atributo, Integer&gt;(this.atributos);</span>
+    }
+
+    public void setAtributo(Atributo atributo, int valor) {
+<span class="fc" id="L105">        this.atributos.replace(atributo, valor);</span>
+<span class="fc" id="L106">    }</span>
+
+    public void setPericia(Pericia pericia, int modificador) {
+<span class="fc" id="L109">        this.pericias.replace(pericia, modificador);</span>
+<span class="fc" id="L110">    }</span>
+
+    public static String getHistoricoRolagens() {
+<span class="nc" id="L113">        return historicoRolagens;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

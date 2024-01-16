@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Recurso.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rpg_companion</a> &gt; <a href="index.source.html" class="el_package">seres</a> &gt; <span class="el_source">Recurso.java</span></div><h1>Recurso.java</h1><pre class="source lang-java linenums">package seres;
+
+public class Recurso {
+    private int valorAtual;
+    private int valorMaximo;
+
+<span class="fc" id="L7">    public Recurso() {</span>
+<span class="fc" id="L8">        this.valorMaximo = 0;</span>
+
+<span class="fc" id="L10">        this.zera();</span>
+
+<span class="fc" id="L12">    }</span>
+
+<span class="fc" id="L14">    public Recurso(int max) {</span>
+<span class="fc" id="L15">        this.valorMaximo = max;</span>
+
+<span class="fc" id="L17">        this.enche();</span>
+<span class="fc" id="L18">    }</span>
+
+    public void variaAtual(int variacao) {
+<span class="nc" id="L21">        this.valorAtual += variacao;</span>
+        // Impdede de ficar abaixo de 0
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        if (this.valorAtual &lt; 0) {</span>
+<span class="nc" id="L24">            this.valorAtual = 0;</span>
+        }
+
+<span class="nc" id="L27">    }</span>
+
+    public void zera() {
+<span class="fc" id="L30">        this.valorAtual = 0;</span>
+<span class="fc" id="L31">    }</span>
+
+    public void enche() {
+<span class="fc" id="L34">        this.valorAtual = this.valorMaximo;</span>
+
+<span class="fc" id="L36">    }</span>
+    
+    public int getValorAtual() {
+<span class="fc" id="L39">        return this.valorAtual;</span>
+    }
+
+    public void setValorAtual(int valorAtual) {
+<span class="fc" id="L43">        this.valorAtual = valorAtual;</span>
+<span class="fc" id="L44">    }</span>
+
+    public int getValorMaximo() {
+<span class="fc" id="L47">        return this.valorMaximo;</span>
+    }
+
+    public void setValorMaximo(int valorMaximo) {
+<span class="fc" id="L51">        this.valorMaximo = valorMaximo;</span>
+<span class="fc" id="L52">    }</span>
+
+    public double getProporçao() {
+<span class="fc" id="L55">        double proporçao = ((double) this.valorAtual) / this.valorMaximo;</span>
+<span class="pc bpc" id="L56" title="1 of 4 branches missed.">        if (proporçao &gt; 1 || this.valorMaximo == 0) {</span>
+<span class="fc" id="L57">            return 1;</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        } else if (proporçao &lt; 0) {</span>
+<span class="nc" id="L59">            return 0;</span>
+        }
+<span class="fc" id="L61">        return proporçao;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

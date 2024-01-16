@@ -17,8 +17,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.Node;
 import seres.Pericia;
 import seres.Ser;
@@ -35,10 +33,16 @@ public class PrimaryController implements Initializable {
     private GerenciadorSessao gerenciador;
 
     @FXML
-    private TextArea textAreaHistorico;
+    private TextArea textAreaHistoricoCriador;
 
     @FXML
-    private TextArea textAreaAnotacoes;
+    private TextArea textAreaAnotacoesCriador;
+
+    @FXML
+    private TextArea textAreaHistoricoMain;
+
+    @FXML
+    private TextArea textAreaAnotacoesMain;
 
     @FXML
     private TabPane tabelaPrincipal; // Tabs no topo da tela
@@ -68,7 +72,6 @@ public class PrimaryController implements Initializable {
         this.gerenciador = new GerenciadorSessao();
         // Criador de persnagem ou criatura
         seletorTipoChoiceBox.getItems().addAll(tiposDeSer.values());
-        seletorTipoChoiceBox.setOnAction(this::getTipoDeSer);
         seletorTipoChoiceBox.setValue(tiposDeSer.Personagem);
 
         seletorTipoChoiceBox.setOnAction(event -> {
@@ -105,6 +108,7 @@ public class PrimaryController implements Initializable {
             Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), personagemTemporarioControler);
             tab.setOnSelectionChanged(event -> {
                 personagemTemporarioControler.atualizarTextoRolagens();
+                tab.setText(serTemporario.getNome());
             });
             tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
 
@@ -117,6 +121,7 @@ public class PrimaryController implements Initializable {
             Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), ameacaTemporariaArea);
             tab.setOnSelectionChanged(event -> {
                 ameacaTemporariaArea.atualizarTextoRolagens();
+                tab.setText(serTemporario.getNome());
             });
             tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
         }
@@ -155,13 +160,14 @@ public class PrimaryController implements Initializable {
             SerAreaMini cardMini = (SerAreaMini) node;
             cardMini.atualizaMini();
         }
-        this.textAreaHistorico.setText(Ser.getHistoricoRolagens());
+        this.textAreaHistoricoMain.setText(Ser.getHistoricoRolagens());
     }
 
-    public void getTipoDeSer(ActionEvent event){
-        String tipoDeSer = seletorTipoChoiceBox.getValue().toString();
-        seletorTipoLabel.setText(tipoDeSer);
+    @FXML
+    public void updateCriadorPage() {
+        this.textAreaHistoricoCriador.setText(Ser.getHistoricoRolagens());
     }
+    
 
     @FXML
     private void switchToSecondary() throws IOException {
@@ -184,9 +190,18 @@ public class PrimaryController implements Initializable {
         // Adicione aqui o código que deseja executar quando o segundo botão for clicado
     }
 
+    // Funcoes para sincronizar as duas areas de anotacoes
+
     @FXML
-    private void atualizarAnotacoes() {
-        this.gerenciador.setAnotacoes(textAreaAnotacoes.getText());
+    private void atualizarAnotacoesMain() {
+        this.gerenciador.setAnotacoes(textAreaAnotacoesMain.getText());
+        this.textAreaAnotacoesCriador.setText(this.gerenciador.getAnotacoes());
+    }
+
+    @FXML
+    private void atualizarAnotacoesCriador() {
+        this.gerenciador.setAnotacoes(textAreaAnotacoesCriador.getText());
+        this.textAreaAnotacoesMain.setText(this.gerenciador.getAnotacoes());
     }
 
 }

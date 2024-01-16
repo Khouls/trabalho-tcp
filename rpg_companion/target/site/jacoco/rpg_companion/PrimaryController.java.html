@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrimaryController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rpg_companion</a> &gt; <a href="index.source.html" class="el_package">rpg_companion</a> &gt; <span class="el_source">PrimaryController.java</span></div><h1>PrimaryController.java</h1><pre class="source lang-java linenums">package rpg_companion;
+
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+
+import java.net.URL;
+import java.security.InvalidKeyException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.Node;
+import seres.Pericia;
+import seres.Ser;
+import seres.ameacas.Ameaca;
+import seres.personagens.Classe;
+import seres.personagens.Personagem;
+
+import java.io.IOException;
+
+import gerenciador.GerenciadorSessao;
+
+<span class="nc" id="L31">public class PrimaryController implements Initializable {</span>
+
+    private GerenciadorSessao gerenciador;
+
+    @FXML
+    private TextArea textAreaHistorico;
+
+    @FXML
+    private TextArea textAreaAnotacoes;
+
+    @FXML
+    private TabPane tabelaPrincipal; // Tabs no topo da tela
+
+<span class="nc" id="L44">    private enum tiposDeSer {Personagem, Ameaça};</span>
+
+    // Seleciona se vai ser criado personagem ou criatura
+    @FXML
+    private ChoiceBox&lt;tiposDeSer&gt; seletorTipoChoiceBox;
+
+    @FXML
+    private Label seletorTipoLabel;
+
+    // Inputs de texto do criador de personagem
+
+    @FXML
+    private TextField nomePersonagemCriadorTextField;
+
+    @FXML
+    private ComboBox&lt;Classe&gt; classePersonagemCriadorComboBox;
+
+     @FXML
+    private FlowPane cardMiniFlowPane;
+
+    @FXML @Override
+    public void initialize(URL location, ResourceBundle resources) {
+<span class="nc" id="L66">        this.gerenciador = new GerenciadorSessao();</span>
+        // Criador de persnagem ou criatura
+<span class="nc" id="L68">        seletorTipoChoiceBox.getItems().addAll(tiposDeSer.values());</span>
+<span class="nc" id="L69">        seletorTipoChoiceBox.setOnAction(this::getTipoDeSer);</span>
+<span class="nc" id="L70">        seletorTipoChoiceBox.setValue(tiposDeSer.Personagem);</span>
+
+<span class="nc" id="L72">        seletorTipoChoiceBox.setOnAction(event -&gt; {</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">            if (this.seletorTipoChoiceBox.getValue().equals(tiposDeSer.Ameaça)) {</span>
+<span class="nc" id="L74">                this.classePersonagemCriadorComboBox.setVisible(false);</span>
+            } else {
+<span class="nc" id="L76">                this.classePersonagemCriadorComboBox.setVisible(true);</span>
+            }
+<span class="nc" id="L78">        });</span>
+
+        // Seletor de classe para o personagem
+<span class="nc" id="L81">        ArrayList&lt;Classe&gt; opcoesClasse = new ArrayList&lt;Classe&gt;();</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        for (Classe classe : Classe.values()) {</span>
+<span class="nc" id="L83">            opcoesClasse.add(classe);</span>
+        }
+<span class="nc" id="L85">        this.classePersonagemCriadorComboBox.setItems(FXCollections.observableList(opcoesClasse));</span>
+<span class="nc" id="L86">        this.classePersonagemCriadorComboBox.setValue(Classe.Combatente);</span>
+<span class="nc" id="L87">    }</span>
+
+    @FXML
+    private void adicionaSer() {
+        // Cria um ser temporário, utilizando os valores nas caixas de texto, e insere no gerenciador
+        // Então cria uma nova tab para o ser
+<span class="nc" id="L93">        final boolean personagemSelecionado = this.seletorTipoChoiceBox.getValue().equals(tiposDeSer.Personagem);</span>
+        // TODO: Refatorar isso para usar SerArea&lt;Personagem&gt; ou SerArea&lt;Ameaca&gt;
+        Ser serTemporario;
+
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (personagemSelecionado) {</span>
+<span class="nc" id="L98">            serTemporario = new Personagem(nomePersonagemCriadorTextField.getText(), classePersonagemCriadorComboBox.getValue());</span>
+<span class="nc" id="L99">            PersonagemArea personagemTemporarioControler = new PersonagemArea();</span>
+            
+<span class="nc" id="L101">            personagemTemporarioControler.setup((Personagem)serTemporario);</span>
+
+<span class="nc" id="L103">            Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), personagemTemporarioControler);</span>
+<span class="nc" id="L104">            tab.setOnSelectionChanged(event -&gt; {</span>
+<span class="nc" id="L105">                personagemTemporarioControler.atualizarTextoRolagens();</span>
+<span class="nc" id="L106">            });</span>
+<span class="nc" id="L107">            tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);</span>
+
+<span class="nc" id="L109">        } else {</span>
+<span class="nc" id="L110">            serTemporario = new Ameaca(nomePersonagemCriadorTextField.getText());</span>
+<span class="nc" id="L111">            AmeacaArea ameacaTemporariaArea = new AmeacaArea();</span>
+            
+<span class="nc" id="L113">            ameacaTemporariaArea.setup((Ameaca) serTemporario);</span>
+            
+<span class="nc" id="L115">            Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), ameacaTemporariaArea);</span>
+<span class="nc" id="L116">            tab.setOnSelectionChanged(event -&gt; {</span>
+<span class="nc" id="L117">                ameacaTemporariaArea.atualizarTextoRolagens();</span>
+<span class="nc" id="L118">            });</span>
+<span class="nc" id="L119">            tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);</span>
+        }
+        
+<span class="nc" id="L122">        SerAreaMini tempMiniController = new SerAreaMini();</span>
+<span class="nc" id="L123">        tempMiniController.setup(serTemporario, event -&gt; {</span>
+<span class="nc" id="L124">            int index = tempMiniController.getIndex();</span>
+            // Remover do gerenciador
+<span class="nc" id="L126">            this.gerenciador.removeSer(index);</span>
+
+            // Remover das visao geral
+<span class="nc" id="L129">            this.cardMiniFlowPane.getChildren().remove(index);</span>
+
+            // Remover das abas (+1 por causa do main)
+<span class="nc" id="L132">            tabelaPrincipal.getTabs().remove(index+1);</span>
+    
+<span class="nc" id="L134">            atualizarIndicesFlowPane();</span>
+<span class="nc" id="L135">        });</span>
+        
+<span class="nc" id="L137">        this.cardMiniFlowPane.getChildren().addAll(tempMiniController);</span>
+<span class="nc" id="L138">        gerenciador.adicionaSer(serTemporario);</span>
+<span class="nc" id="L139">        atualizarIndicesFlowPane();</span>
+<span class="nc" id="L140">    }</span>
+
+
+    public void atualizarIndicesFlowPane() {
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        for (int index = 0; index &lt; cardMiniFlowPane.getChildren().size(); index++) {</span>
+<span class="nc" id="L145">            SerAreaMini cardMini = (SerAreaMini) cardMiniFlowPane.getChildren().get(index);</span>
+<span class="nc" id="L146">            cardMini.setIndex(index);</span>
+        }
+<span class="nc" id="L148">    }</span>
+
+    @FXML
+    public void updateMainPage(){
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        for (Node node : cardMiniFlowPane.getChildren()) {</span>
+<span class="nc" id="L153">            SerAreaMini cardMini = (SerAreaMini) node;</span>
+<span class="nc" id="L154">            cardMini.atualizaMini();</span>
+<span class="nc" id="L155">        }</span>
+<span class="nc" id="L156">        this.textAreaHistorico.setText(Ser.getHistoricoRolagens());</span>
+<span class="nc" id="L157">    }</span>
+
+    public void getTipoDeSer(ActionEvent event){
+<span class="nc" id="L160">        String tipoDeSer = seletorTipoChoiceBox.getValue().toString();</span>
+<span class="nc" id="L161">        seletorTipoLabel.setText(tipoDeSer);</span>
+<span class="nc" id="L162">    }</span>
+
+    @FXML
+    private void switchToSecondary() throws IOException {
+<span class="nc" id="L166">        App.setRoot(&quot;secondary&quot;);</span>
+<span class="nc" id="L167">    }</span>
+    
+    public void testeBotao() {
+        try {
+<span class="nc" id="L171">            this.gerenciador.getSeres().get(0).fazerTeste(Pericia.Ocultismo);</span>
+<span class="nc" id="L172">            this.gerenciador.getSeres().get(0).fazerTeste(Pericia.Ciências);</span>
+<span class="nc" id="L173">        } catch (InvalidKeyException exception) {</span>
+<span class="nc" id="L174">            System.out.println(&quot;Pericia Invalida&quot;);</span>
+<span class="nc" id="L175">        }        </span>
+<span class="nc" id="L176">    }</span>
+
+    @FXML
+    private void secondAction(ActionEvent event) {
+        // Lógica a ser executada quando o segundo botão for pressionado
+<span class="nc" id="L181">        System.out.println(&quot;Segundo botão pressionado!&quot;);</span>
+        // Adicione aqui o código que deseja executar quando o segundo botão for clicado
+<span class="nc" id="L183">    }</span>
+
+    @FXML
+    private void atualizarAnotacoes() {
+<span class="nc" id="L187">        this.gerenciador.setAnotacoes(textAreaAnotacoes.getText());</span>
+<span class="nc" id="L188">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

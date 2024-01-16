@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Personagem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rpg_companion</a> &gt; <a href="index.source.html" class="el_package">seres.personagens</a> &gt; <span class="el_source">Personagem.java</span></div><h1>Personagem.java</h1><pre class="source lang-java linenums">package seres.personagens;
+
+import seres.Ser;
+import seres.Atributo;
+import seres.Pericia;
+import seres.Recurso;
+import java.util.ArrayList;
+
+public class Personagem extends Ser {
+    private Classe classe;
+    private int nivelExposicao;
+    private Recurso pontosEsforço;
+    private Recurso pontosSanidade;
+
+    private ArrayList&lt;Item&gt; inventario;
+    private ArrayList&lt;Poder&gt; poderes;
+
+    public Personagem(String nome, Classe classe) {
+<span class="fc" id="L19">        super(nome);</span>
+<span class="fc" id="L20">        this.classe = classe;</span>
+<span class="fc" id="L21">        this.setDefesa(Classe.DEFESA_BASE + this.atributos.get(Atributo.Agilidade));</span>
+<span class="fc" id="L22">        this.nivelExposicao = Classe.NEX_INICIAL;</span>
+<span class="fc" id="L23">        this.pontosEsforço = new Recurso();</span>
+<span class="fc" id="L24">        this.pontosSanidade = new Recurso();</span>
+
+<span class="fc" id="L26">        this.atualizaValoresNoNivel();</span>
+
+<span class="fc" id="L28">        this.inventario = new ArrayList&lt;Item&gt;();</span>
+<span class="fc" id="L29">        this.poderes = new ArrayList&lt;Poder&gt;();</span>
+<span class="fc" id="L30">    }</span>
+
+    @Override
+    protected void inicializarPericias() {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        for (Pericia pericia : Pericia.values()) {</span>
+<span class="fc" id="L35">            this.pericias.put(pericia, 0);</span>
+        }
+<span class="fc" id="L37">    }</span>
+    
+    private int calculaRecursoNoNivel(int valorInicial, int valorPorNivel, int modificadorDeAtributo) {
+<span class="fc" id="L40">        return valorInicial + modificadorDeAtributo + ((valorPorNivel + modificadorDeAtributo)* ((this.nivelExposicao / Classe.EXPOSICAO_POR_NIVEL) - 1));</span>
+    }
+
+    private void atualizaValoresNoNivel() {
+        // Vida é modificada por Vigor
+<span class="fc" id="L45">        int vidaMaxima = calculaRecursoNoNivel(this.classe.vidaInicial(), this.classe.vidaNex(), this.atributos.get(Atributo.Vigor));</span>
+<span class="fc" id="L46">        this.pontosVida.setValorMaximo(vidaMaxima);</span>
+<span class="fc" id="L47">        this.pontosVida.enche();</span>
+
+        // Esforço é modificado por presença        
+<span class="fc" id="L50">        int esforcoMaximo = calculaRecursoNoNivel(this.classe.esforcoInicial(), this.classe.esforcoNex(), this.atributos.get(Atributo.Presença));</span>
+<span class="fc" id="L51">        this.pontosEsforço.setValorMaximo(esforcoMaximo);</span>
+<span class="fc" id="L52">        this.pontosEsforço.enche();</span>
+
+        // Sanidade não é modificada por nada
+<span class="fc" id="L55">        int sanidadeMaxima = calculaRecursoNoNivel(this.classe.sanidadeInicial(), this.classe.sanidadeNex(), 0);  </span>
+<span class="fc" id="L56">        this.pontosSanidade.setValorMaximo(sanidadeMaxima);</span>
+<span class="fc" id="L57">        this.pontosSanidade.enche();</span>
+
+<span class="fc" id="L59">    }</span>
+
+    @Override
+    public void setAtributo(Atributo atributo, int valor) {
+<span class="fc" id="L63">        super.setAtributo(atributo, valor);</span>
+<span class="fc" id="L64">        this.atualizaValoresNoNivel();</span>
+<span class="fc" id="L65">    }</span>
+
+    public void adicionarItem(Item item) {
+<span class="fc" id="L68">        this.inventario.add(item);</span>
+<span class="fc" id="L69">    }</span>
+
+    public void adicionarItem(Item item, int index) {
+<span class="nc" id="L72">        this.inventario.add(index, item);</span>
+<span class="nc" id="L73">    }</span>
+
+    public void removerItem(int index) {
+<span class="nc" id="L76">        this.inventario.remove(index);</span>
+<span class="nc" id="L77">    }</span>
+
+    public void adicionarPoder(Poder poder) {
+<span class="fc" id="L80">        this.poderes.add(poder);</span>
+<span class="fc" id="L81">    }</span>
+
+    public void adicionarPoder(Poder poder, int index) {
+<span class="nc" id="L84">        this.poderes.add(index, poder);</span>
+<span class="nc" id="L85">    }</span>
+
+    public void removerPoder(int index) {
+<span class="nc" id="L88">        this.poderes.remove(index);</span>
+<span class="nc" id="L89">    }</span>
+
+    public Classe getClasse() {
+<span class="fc" id="L92">        return this.classe;</span>
+    }
+
+    public void setClasse(Classe classe) {
+<span class="fc" id="L96">        this.classe = classe;</span>
+<span class="fc" id="L97">        this.atualizaValoresNoNivel();</span>
+<span class="fc" id="L98">    }</span>
+
+    public int getNivelExposicao() {
+<span class="nc" id="L101">        return this.nivelExposicao;</span>
+    }
+
+    public void setNivelExposicao(int nivelExposicao) {
+<span class="nc" id="L105">        this.nivelExposicao = nivelExposicao;</span>
+<span class="nc" id="L106">        this.atualizaValoresNoNivel();</span>
+<span class="nc" id="L107">    }</span>
+
+    public Recurso getPontosEsforço() {
+<span class="nc" id="L110">        return this.pontosEsforço;</span>
+    }
+
+    public Recurso getPontosSanidade() {
+<span class="nc" id="L114">        return this.pontosSanidade;</span>
+    }
+
+    public ArrayList&lt;Item&gt; getInventario() {
+<span class="nc" id="L118">        return this.inventario;</span>
+    }
+
+    public ArrayList&lt;Poder&gt; getPoderes() {
+<span class="nc" id="L122">        return this.poderes;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

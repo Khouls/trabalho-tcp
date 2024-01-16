@@ -7,7 +7,7 @@ public class GerenciadorSessao {
 
     private ArrayList<Ser> seres;
     private String anotacoes;
-        
+
     public GerenciadorSessao() {
         this.seres = new ArrayList<Ser>();
         this.anotacoes = "";
@@ -36,5 +36,5 @@ public class GerenciadorSessao {
     public Ser getSer(int index) {
         return this.seres.get(index);
     }
-    
+
 }

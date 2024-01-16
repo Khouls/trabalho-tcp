@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ameaca.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rpg_companion</a> &gt; <a href="index.source.html" class="el_package">seres.ameacas</a> &gt; <span class="el_source">Ameaca.java</span></div><h1>Ameaca.java</h1><pre class="source lang-java linenums">package seres.ameacas;
+
+import java.util.ArrayList;
+
+import seres.Pericia;
+import seres.Ser;
+
+public class Ameaca extends Ser {
+    private int valorDificuldade;
+
+    private ArrayList&lt;Habilidade&gt; habilidades;
+
+    public Ameaca(String nome) {
+<span class="fc" id="L14">        super(nome);</span>
+<span class="fc" id="L15">        this.valorDificuldade = 0;</span>
+<span class="fc" id="L16">        this.habilidades = new ArrayList&lt;Habilidade&gt;();</span>
+
+<span class="fc" id="L18">    }</span>
+    
+    @Override
+    protected void inicializarPericias() {
+        // Ameaças apenas possuem Luta, Percepção, Iniciativa, Fortitude, Reflexos e Vontade
+<span class="fc" id="L23">        this.pericias.put(Pericia.Luta, 0);</span>
+<span class="fc" id="L24">        this.pericias.put(Pericia.Percepção, 0);</span>
+<span class="fc" id="L25">        this.pericias.put(Pericia.Iniciativa, 0);</span>
+<span class="fc" id="L26">        this.pericias.put(Pericia.Fortitude, 0);</span>
+<span class="fc" id="L27">        this.pericias.put(Pericia.Reflexos, 0);</span>
+<span class="fc" id="L28">        this.pericias.put(Pericia.Vontade, 0);</span>
+<span class="fc" id="L29">    }</span>
+
+    public void adicionarHabilidade(Habilidade habilidade) {
+<span class="fc" id="L32">        this.habilidades.add(habilidade);</span>
+<span class="fc" id="L33">    }</span>
+
+    public void adicionarHabilidade(Habilidade habilidade, int index) {
+<span class="nc" id="L36">        this.habilidades.add(index, habilidade);</span>
+<span class="nc" id="L37">    }</span>
+
+    public void removerHabilidade(int index) {
+<span class="nc" id="L40">        this.habilidades.remove(index);</span>
+<span class="nc" id="L41">    }</span>
+
+    public ArrayList&lt;Habilidade&gt; getHabilidades() {
+<span class="nc" id="L44">        return this.habilidades;</span>
+    }
+    
+    public int getValorDificuldade() {
+<span class="nc" id="L48">        return this.valorDificuldade;</span>
+    }
+
+    public void setValorDificuldade(int valorDificuldade) {
+<span class="fc" id="L52">        this.valorDificuldade = valorDificuldade;</span>
+<span class="fc" id="L53">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

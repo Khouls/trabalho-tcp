@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PericiaBox.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rpg_companion</a> &gt; <a href="index.source.html" class="el_package">rpg_companion</a> &gt; <span class="el_source">PericiaBox.java</span></div><h1>PericiaBox.java</h1><pre class="source lang-java linenums">package rpg_companion;
+
+import java.io.IOException;
+
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import seres.Pericia;
+import seres.Ser;
+
+
+public class PericiaBox extends GridPane {
+
+    @FXML
+    private Spinner&lt;Integer&gt; spinnerModificador;
+
+    @FXML
+    private Button botaoRolar;
+
+    @FXML
+    private Text textoNome;
+
+    private Ser ser;
+
+    private Pericia pericia;
+
+<span class="nc" id="L35">    public PericiaBox() {       </span>
+<span class="nc" id="L36">        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(&quot;PericiaBox.fxml&quot;));</span>
+<span class="nc" id="L37">        fxmlLoader.setRoot(this);</span>
+<span class="nc" id="L38">        fxmlLoader.setController(this);</span>
+        try {
+<span class="nc" id="L40">            fxmlLoader.load();</span>
+<span class="nc" id="L41">        } catch (IOException e) {</span>
+            // TODO Auto-generated catch block
+<span class="nc" id="L43">            e.printStackTrace();</span>
+<span class="nc" id="L44">        }</span>
+
+<span class="nc" id="L46">    }</span>
+    public void setup(Ser ser, Pericia pericia, EventHandler&lt;? super MouseEvent&gt; funçãoRolar) {
+<span class="nc" id="L48">        this.ser = ser;</span>
+<span class="nc" id="L49">        this.pericia = pericia;</span>
+
+        // Setar o nome da pericia
+<span class="nc" id="L52">        this.textoNome.setText(pericia.toString());</span>
+
+        // Setar o spinner do modificador
+<span class="nc" id="L55">        this.spinnerModificador.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-100, 100, 0, 5));</span>
+
+<span class="nc" id="L57">        this.spinnerModificador.getEditor().textProperty().addListener((obs, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L58">            this.ser.setPericia(pericia, Integer.parseInt(newValue));</span>
+<span class="nc" id="L59">        });</span>
+
+<span class="nc" id="L61">        this.botaoRolar.setOnMouseClicked(funçãoRolar);</span>
+        
+        // Adicionar o icone ao botão
+<span class="nc" id="L64">        Image imagemDado = new Image(getClass().getResource(&quot;icons/d20.png&quot;).toExternalForm());</span>
+<span class="nc" id="L65">        ImageView iconeBotao = new ImageView(imagemDado);</span>
+<span class="nc" id="L66">        iconeBotao.setFitHeight(36.0);</span>
+<span class="nc" id="L67">        iconeBotao.setPreserveRatio(true);</span>
+<span class="nc" id="L68">        this.botaoRolar.setGraphic(iconeBotao);</span>
+        
+<span class="nc" id="L70">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

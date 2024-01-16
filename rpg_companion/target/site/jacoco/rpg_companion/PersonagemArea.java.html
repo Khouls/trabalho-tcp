@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PersonagemArea.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rpg_companion</a> &gt; <a href="index.source.html" class="el_package">rpg_companion</a> &gt; <span class="el_source">PersonagemArea.java</span></div><h1>PersonagemArea.java</h1><pre class="source lang-java linenums">package rpg_companion;
+
+import javafx.collections.FXCollections;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+
+import java.io.IOException;
+
+import java.security.InvalidKeyException;
+import java.util.ArrayList;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import seres.Atributo;
+import seres.Pericia;
+import seres.Recurso;
+import seres.Ser;
+import seres.personagens.Classe;
+import seres.personagens.Item;
+import seres.personagens.Personagem;
+import seres.personagens.Poder;
+
+public class PersonagemArea extends VBox {
+    private Personagem personagem;
+
+    @FXML
+    private TextField campoNome;
+
+    @FXML
+    private Spinner&lt;Integer&gt; spinnerNex;
+
+    @FXML
+    private ComboBox&lt;Classe&gt; comboBoxClasse;
+
+    @FXML
+    private ProgressBar barraVida;
+
+    @FXML
+    private Spinner&lt;Integer&gt; spinnerVidaMax;
+
+    @FXML
+    private Spinner&lt;Integer&gt; spinnerVidaAtual;
+
+    @FXML
+    private ProgressBar barraEsforço;
+
+    @FXML
+    private Spinner&lt;Integer&gt; spinnerEsforçoMax;
+
+    @FXML
+    private Spinner&lt;Integer&gt; spinnerEsforçoAtual;
+    
+    @FXML
+    private ProgressBar barraSanidade;
+
+    @FXML
+    private Spinner&lt;Integer&gt; spinnerSanidadeMax;
+
+    @FXML
+    private Spinner&lt;Integer&gt; spinnerSanidadeAtual;
+
+    @FXML
+    private TextField campoForça;
+
+    @FXML
+    private Button botaoTesteForça;
+
+    @FXML
+    private TextField campoAgilidade;
+
+    @FXML
+    private Button botaoTesteAgilidade;
+
+    @FXML
+    private TextField campoIntelecto;
+
+    @FXML
+    private Button botaoTesteIntelecto;
+
+    @FXML
+    private TextField campoPresença;
+
+    @FXML
+    private Button botaoTestePresença;
+
+    @FXML
+    private TextField campoVigor;
+
+    @FXML
+    private Button botaoTesteVigor;
+
+    @FXML
+    private TextField campoDefesa;
+
+    @FXML
+    private VBox areaPericias;
+
+    @FXML
+    private FlowPane areaItens;
+
+    @FXML
+    private Button botaoNovoItem;
+
+    @FXML
+    private FlowPane areaPoderes; 
+
+    @FXML
+    private Button botaoNovoPoder;
+    
+    @FXML
+    private TextArea textareaRolagens;
+
+    @FXML
+    private TextField campoRolagemCustom;
+
+    @FXML 
+    private Button botaoRolagemCustom;
+
+<span class="nc" id="L130">    public PersonagemArea() {</span>
+<span class="nc" id="L131">        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(&quot;PersonagemArea.fxml&quot;));</span>
+<span class="nc" id="L132">        fxmlLoader.setRoot(this);</span>
+<span class="nc" id="L133">        fxmlLoader.setController(this);</span>
+        try {
+<span class="nc" id="L135">            fxmlLoader.load();</span>
+<span class="nc" id="L136">            this.setVgrow(this, Priority.ALWAYS);</span>
+<span class="nc" id="L137">        } catch (IOException e) {</span>
+            // TODO Auto-generated catch block
+<span class="nc" id="L139">            e.printStackTrace();</span>
+<span class="nc" id="L140">        }</span>
+<span class="nc" id="L141">    }</span>
+
+    @FXML
+    public void setup(Personagem personagem) {
+<span class="nc" id="L145">        this.personagem = personagem;</span>
+        // Setar nome
+<span class="nc" id="L147">        this.campoNome.setText(this.personagem.getNome());</span>
+<span class="nc" id="L148">        this.campoNome.setOnKeyTyped(event -&gt; {</span>
+<span class="nc" id="L149">            this.personagem.setNome(this.campoNome.getText());</span>
+<span class="nc" id="L150">        });</span>
+
+        // Setar classe
+<span class="nc" id="L153">        ArrayList&lt;Classe&gt; opcoesClasse = new ArrayList&lt;Classe&gt;();</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        for (Classe classe : Classe.values()) {</span>
+<span class="nc" id="L155">            opcoesClasse.add(classe);</span>
+        }
+<span class="nc" id="L157">        this.comboBoxClasse.setItems(FXCollections.observableList(opcoesClasse));</span>
+<span class="nc" id="L158">        this.comboBoxClasse.setValue(this.personagem.getClasse());</span>
+<span class="nc" id="L159">        this.comboBoxClasse.setOnAction(event -&gt; {</span>
+<span class="nc" id="L160">            this.personagem.setClasse(this.comboBoxClasse.getValue());</span>
+<span class="nc" id="L161">            this.atualizarSpinnersRecursos();</span>
+<span class="nc" id="L162">        });</span>
+
+        // Setar NEX
+<span class="nc" id="L165">        this.spinnerNex.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 99, 5));</span>
+<span class="nc" id="L166">        this.spinnerNex.getEditor().textProperty().addListener((obs, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L167">            this.personagem.setNivelExposicao(Integer.parseInt(newValue));</span>
+<span class="nc" id="L168">            this.atualizarSpinnersRecursos();</span>
+<span class="nc" id="L169">        });</span>
+
+  
+        // Setar Recursos
+<span class="nc" id="L173">        conectarSpinnersRecurso(spinnerVidaAtual, spinnerVidaMax, barraVida, this.personagem.getPontosVida());</span>
+
+<span class="nc" id="L175">        conectarSpinnersRecurso(spinnerSanidadeAtual, spinnerSanidadeMax, barraSanidade, this.personagem.getPontosSanidade());</span>
+        
+<span class="nc" id="L177">        conectarSpinnersRecurso(spinnerEsforçoAtual, spinnerEsforçoMax, barraEsforço, this.personagem.getPontosEsforço());</span>
+
+<span class="nc" id="L179">        this.atualizarSpinnersRecursos();</span>
+
+        // Setar Defesa
+<span class="nc" id="L182">        this.campoDefesa.setText(String.valueOf(this.personagem.getDefesa()));</span>
+<span class="nc" id="L183">        this.campoDefesa.setOnKeyTyped(event -&gt; {</span>
+            int newValor;
+            try {
+<span class="nc" id="L186">                newValor = Integer.parseInt(this.campoDefesa.getText());</span>
+<span class="nc" id="L187">                this.personagem.setDefesa(newValor);</span>
+<span class="nc" id="L188">                this.atualizarSpinnersRecursos();</span>
+<span class="nc" id="L189">            } catch (Exception e) {</span>
+<span class="nc" id="L190">                campoDefesa.setText(String.valueOf(this.personagem.getDefesa()));</span>
+<span class="nc" id="L191">            }</span>
+<span class="nc" id="L192">        });</span>
+
+        //Setar os atributos
+<span class="nc" id="L195">        conectarCampoAtributo(this.campoForça, Atributo.Força);</span>
+<span class="nc" id="L196">        conectarCampoAtributo(this.campoAgilidade, Atributo.Agilidade);</span>
+<span class="nc" id="L197">        conectarCampoAtributo(this.campoIntelecto, Atributo.Intelecto);</span>
+<span class="nc" id="L198">        conectarCampoAtributo(this.campoPresença, Atributo.Presença);</span>
+<span class="nc" id="L199">        conectarCampoAtributo(this.campoVigor, Atributo.Vigor);</span>
+<span class="nc" id="L200">        configurarBotoesTestesAtributos();</span>
+
+        // Construir a area de pericias
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        for (Pericia pericia : this.personagem.getPericias().keySet()) {</span>
+<span class="nc" id="L204">           this.areaPericias.getChildren().add(criarContainerPericia(pericia));</span>
+<span class="nc" id="L205">        }</span>
+
+        // Setar o botão de adicionar Item
+<span class="nc" id="L208">        this.botaoNovoItem.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L209">            adicionarItem(new Item());</span>
+<span class="nc" id="L210">        });</span>
+
+        // Setar o botão de adicionar Item
+<span class="nc" id="L213">        this.botaoNovoPoder.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L214">            adicionarPoder(new Poder());</span>
+<span class="nc" id="L215">        });</span>
+
+
+        // Setar area de rolagem customizada
+        // Adicionar o icone ao botão
+<span class="nc" id="L220">        Image imagemDado = new Image(getClass().getResource(&quot;icons/d20.png&quot;).toExternalForm());</span>
+<span class="nc" id="L221">        ImageView iconeBotao = new ImageView(imagemDado);</span>
+<span class="nc" id="L222">        iconeBotao.setFitHeight(17.0);</span>
+<span class="nc" id="L223">        iconeBotao.setPreserveRatio(true);</span>
+<span class="nc" id="L224">        this.botaoRolagemCustom.setGraphic(iconeBotao);</span>
+
+<span class="nc" id="L226">        this.botaoRolagemCustom.setOnMouseClicked(event -&gt; {</span>
+            // Parserar rolagem
+<span class="nc" id="L228">            boolean rolagemOK = true;</span>
+<span class="nc" id="L229">            String textoRolagem = this.campoRolagemCustom.getText();</span>
+
+            try {
+<span class="nc" id="L232">                String[] separacaoQtDados = textoRolagem.split(&quot;d&quot;);</span>
+                // Verificar se so foi colocado um numero de dados
+<span class="nc bnc" id="L234" title="All 2 branches missed.">                rolagemOK = separacaoQtDados.length == 2;</span>
+
+                // Ex: 2d10+2
+                // [2]d10+20
+    
+<span class="nc" id="L239">                int qtDados = Integer.parseInt(separacaoQtDados[0]);</span>
+<span class="nc" id="L240">                String[] separacaoModificadores = separacaoQtDados[1].split(&quot;\\x2B&quot;);</span>
+
+                // Primeiro valor vai ser a quantidade de faces
+                // 2d[10]+20
+<span class="nc" id="L244">                int numFaces = Integer.parseInt(separacaoModificadores[0]);</span>
+
+                // O proximo vai ser o modificador
+                // 2d10+[20]
+<span class="nc" id="L248">                int modificador = Integer.parseInt(separacaoModificadores[1]);</span>
+
+<span class="nc bnc" id="L250" title="All 2 branches missed.">                if (rolagemOK) {</span>
+<span class="nc" id="L251">                    this.personagem.rodarDados(numFaces, qtDados, modificador);</span>
+<span class="nc" id="L252">                    this.atualizarTextoRolagens();</span>
+                } else {
+<span class="nc" id="L254">                    System.out.println(&quot;Rolagem mal formada: &quot; + textoRolagem);</span>
+                }
+                
+<span class="nc" id="L257">            } catch (Exception e) {</span>
+<span class="nc" id="L258">                System.out.println(&quot;Rolagem mal formada: &quot; + textoRolagem);</span>
+<span class="nc" id="L259">                e.printStackTrace();</span>
+<span class="nc" id="L260">            }</span>
+
+
+<span class="nc" id="L263">        });</span>
+
+
+<span class="nc" id="L266">    }</span>
+
+    private void conectarSpinnersRecurso(Spinner&lt;Integer&gt; spinnerValorAtual, Spinner&lt;Integer&gt; spinnerValorMaximo, ProgressBar barraRecurso, Recurso recurso) {
+<span class="nc" id="L269">        spinnerValorAtual.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));</span>
+
+<span class="nc" id="L271">        spinnerValorAtual.getEditor().textProperty().addListener((obs, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L272">            recurso.setValorAtual(Integer.parseInt(newValue));</span>
+<span class="nc" id="L273">            barraRecurso.setProgress(recurso.getProporçao());</span>
+<span class="nc" id="L274">        });</span>
+
+<span class="nc" id="L276">        spinnerValorMaximo.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999, 0));</span>
+
+<span class="nc" id="L278">        spinnerValorMaximo.getEditor().textProperty().addListener((obs, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L279">            recurso.setValorMaximo(Integer.parseInt(newValue));</span>
+<span class="nc" id="L280">            barraRecurso.setProgress(recurso.getProporçao());</span>
+<span class="nc" id="L281">        });</span>
+
+<span class="nc" id="L283">        barraRecurso.setProgress(recurso.getProporçao());</span>
+
+<span class="nc" id="L285">    }</span>
+
+    private void conectarCampoAtributo(TextField campo, Atributo atributo) {
+<span class="nc" id="L288">        campo.setText(this.personagem.getAtributos().get(atributo).toString());</span>
+<span class="nc" id="L289">        campo.setOnKeyTyped(event -&gt; {</span>
+            int newValor;
+            try {
+<span class="nc" id="L292">                newValor = Integer.parseInt(campo.getText());</span>
+<span class="nc" id="L293">                this.personagem.setAtributo(atributo, newValor);</span>
+<span class="nc" id="L294">                this.atualizarSpinnersRecursos();</span>
+<span class="nc" id="L295">            } catch (Exception e) {</span>
+<span class="nc" id="L296">                campo.setText(this.personagem.getAtributos().get(atributo).toString());</span>
+<span class="nc" id="L297">            }</span>
+
+<span class="nc" id="L299">        });</span>
+<span class="nc" id="L300">    }</span>
+
+    private void atualizarSpinnersRecursos() {
+<span class="nc" id="L303">        this.spinnerVidaAtual.getValueFactory().setValue(this.personagem.getPontosVida().getValorAtual());</span>
+
+<span class="nc" id="L305">        this.spinnerVidaMax.getValueFactory().setValue(this.personagem.getPontosVida().getValorMaximo());</span>
+        
+<span class="nc" id="L307">        this.spinnerSanidadeAtual.getValueFactory().setValue(this.personagem.getPontosSanidade().getValorAtual());</span>
+        
+<span class="nc" id="L309">        this.spinnerSanidadeMax.getValueFactory().setValue(this.personagem.getPontosSanidade().getValorMaximo());</span>
+
+<span class="nc" id="L311">        this.spinnerEsforçoAtual.getValueFactory().setValue(this.personagem.getPontosEsforço().getValorAtual());</span>
+        
+<span class="nc" id="L313">        this.spinnerEsforçoMax.getValueFactory().setValue(this.personagem.getPontosEsforço().getValorMaximo());</span>
+
+<span class="nc" id="L315">    }</span>
+
+    private PericiaBox criarContainerPericia(Pericia pericia) {
+<span class="nc" id="L318">        PericiaBox boxPericia = new PericiaBox();</span>
+<span class="nc" id="L319">        boxPericia.setup(this.personagem, pericia, event -&gt; {</span>
+            try {
+<span class="nc" id="L321">                this.personagem.fazerTeste(pericia);</span>
+<span class="nc" id="L322">                textareaRolagens.setText(Ser.getHistoricoRolagens());</span>
+<span class="nc" id="L323">            } catch (InvalidKeyException e) {</span>
+<span class="nc" id="L324">                System.out.println(&quot;Pericia Inválida:&quot; + pericia);</span>
+<span class="nc" id="L325">            }</span>
+<span class="nc" id="L326">        });</span>
+
+<span class="nc" id="L328">        return boxPericia;</span>
+    }
+
+    private void adicionarItem (Item item) {
+<span class="nc" id="L332">        ItemCard cardItem = new ItemCard();</span>
+        // Adicionar o item no penultimo local
+<span class="nc" id="L334">        int index = this.areaItens.getChildren().size() - 1;</span>
+
+<span class="nc" id="L336">        this.personagem.adicionarItem(item);</span>
+
+<span class="nc" id="L338">        cardItem.setup(item, index, event -&gt; {</span>
+<span class="nc" id="L339">            this.areaItens.getChildren().remove(cardItem.getIndex());</span>
+<span class="nc" id="L340">            this.atualizarIndicesItens();</span>
+<span class="nc" id="L341">            this.personagem.removerItem(cardItem.getIndex());</span>
+<span class="nc" id="L342">        });</span>
+
+<span class="nc" id="L344">        this.areaItens.getChildren().add(index, cardItem);        </span>
+<span class="nc" id="L345">    }</span>
+
+    private void adicionarPoder (Poder poder) {
+<span class="nc" id="L348">        PoderCard cardPoder = new PoderCard();</span>
+        // Adicionar o item no penultimo local
+<span class="nc" id="L350">        int index = this.areaPoderes.getChildren().size() - 1;</span>
+
+<span class="nc" id="L352">        this.personagem.adicionarPoder(poder);</span>
+
+<span class="nc" id="L354">        cardPoder.setup(poder, index, event -&gt; {</span>
+<span class="nc" id="L355">            this.areaPoderes.getChildren().remove(cardPoder.getIndex());</span>
+<span class="nc" id="L356">            this.atualizarIndicesPoderes();</span>
+<span class="nc" id="L357">            this.personagem.removerPoder(cardPoder.getIndex());</span>
+<span class="nc" id="L358">        });</span>
+
+<span class="nc" id="L360">        this.areaPoderes.getChildren().add(index, cardPoder);        </span>
+<span class="nc" id="L361">    }</span>
+
+    private void atualizarIndicesItens() {
+        // Passar até o penúltimo atualizando os indices
+<span class="nc bnc" id="L365" title="All 2 branches missed.">        for (int index = 0; index &lt; areaItens.getChildren().size() - 1; index++) {</span>
+<span class="nc" id="L366">            ItemCard cardItem = (ItemCard) areaItens.getChildren().get(index);</span>
+<span class="nc" id="L367">            cardItem.setIndex(index);</span>
+        }
+<span class="nc" id="L369">    }</span>
+
+    private void atualizarIndicesPoderes() {
+        // Passar até o penúltimo atualizando os indices
+<span class="nc bnc" id="L373" title="All 2 branches missed.">        for (int index = 0; index &lt; areaPoderes.getChildren().size() - 1; index++) {</span>
+<span class="nc" id="L374">            PoderCard cardPoder = (PoderCard) areaPoderes.getChildren().get(index);</span>
+<span class="nc" id="L375">            cardPoder.setIndex(index);</span>
+        }
+<span class="nc" id="L377">    }</span>
+
+    public void atualizarTextoRolagens() {
+<span class="nc" id="L380">        this.textareaRolagens.setText(Ser.getHistoricoRolagens());</span>
+<span class="nc" id="L381">    }</span>
+
+    private ImageView importarIconeBotao(double tamanho) {
+<span class="nc" id="L384">        Image imagemDado = new Image(getClass().getResource(&quot;icons/d20.png&quot;).toExternalForm());</span>
+<span class="nc" id="L385">        ImageView iconeBotao = new ImageView(imagemDado);</span>
+<span class="nc" id="L386">        iconeBotao.setFitHeight(tamanho);</span>
+<span class="nc" id="L387">        iconeBotao.setPreserveRatio(true);</span>
+
+<span class="nc" id="L389">        return iconeBotao;</span>
+    }
+
+    public void configurarBotoesTestesAtributos() {
+<span class="nc" id="L393">        final double tamanhoIcone = 17.0;</span>
+        
+<span class="nc" id="L395">        this.botaoTesteForça.setGraphic(importarIconeBotao(tamanhoIcone));</span>
+<span class="nc" id="L396">        this.botaoTesteAgilidade.setGraphic(importarIconeBotao(tamanhoIcone));</span>
+<span class="nc" id="L397">        this.botaoTesteIntelecto.setGraphic(importarIconeBotao(tamanhoIcone));</span>
+<span class="nc" id="L398">        this.botaoTestePresença.setGraphic(importarIconeBotao(tamanhoIcone));</span>
+<span class="nc" id="L399">        this.botaoTesteVigor.setGraphic(importarIconeBotao(tamanhoIcone));</span>
+
+<span class="nc" id="L401">        this.botaoTesteForça.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L402">            this.personagem.fazerTeste(Atributo.Força);</span>
+<span class="nc" id="L403">            atualizarTextoRolagens();</span>
+<span class="nc" id="L404">        });</span>
+
+<span class="nc" id="L406">        this.botaoTesteAgilidade.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L407">            this.personagem.fazerTeste(Atributo.Agilidade);</span>
+<span class="nc" id="L408">            atualizarTextoRolagens();</span>
+<span class="nc" id="L409">        });</span>
+
+<span class="nc" id="L411">        this.botaoTesteIntelecto.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L412">            this.personagem.fazerTeste(Atributo.Intelecto);</span>
+<span class="nc" id="L413">            atualizarTextoRolagens();</span>
+<span class="nc" id="L414">        });</span>
+
+<span class="nc" id="L416">        this.botaoTestePresença.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L417">            this.personagem.fazerTeste(Atributo.Presença);</span>
+<span class="nc" id="L418">            atualizarTextoRolagens();</span>
+<span class="nc" id="L419">        });</span>
+
+<span class="nc" id="L421">        this.botaoTesteVigor.setOnMouseClicked(event -&gt; {</span>
+<span class="nc" id="L422">            this.personagem.fazerTeste(Atributo.Vigor);</span>
+<span class="nc" id="L423">            atualizarTextoRolagens();</span>
+<span class="nc" id="L424">        });</span>
+<span class="nc" id="L425">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "rpg.companion/rpg_companion.Main",
+            "projectName": "rpg_companion"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "rpg.companion/rpg_companion.App",
+            "projectName": "rpg_companion"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "rpg_companion/rpg_companion.App",
