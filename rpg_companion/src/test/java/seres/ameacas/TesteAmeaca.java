@@ -1,4 +1,4 @@
-package seres.ameacas;
+ package seres.ameacas;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.security.InvalidKeyException;
@@ -9,11 +9,7 @@ import org.junit.jupiter.api.Test;
 import gerenciador.Rolagem;
 import seres.Atributo;
 import seres.Pericia;
-import seres.personagens.Classe;
-import seres.personagens.Elemento;
-import seres.personagens.Item;
-import seres.personagens.Personagem;
-import seres.personagens.Poder;
+
 
 
 public class TesteAmeaca {

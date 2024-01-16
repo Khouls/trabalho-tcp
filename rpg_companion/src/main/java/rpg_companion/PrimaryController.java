@@ -12,16 +12,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Node;
-import seres.Atributo;
 import seres.Pericia;
+import seres.Ser;
 import seres.ameacas.Ameaca;
 import seres.personagens.Classe;
 import seres.personagens.Personagem;
@@ -32,30 +32,26 @@ import gerenciador.GerenciadorSessao;
 
 public class PrimaryController implements Initializable {
 
-    private GerenciadorSessao gerenciador = new GerenciadorSessao();
+    private GerenciadorSessao gerenciador;
+
+    @FXML
+    private TextArea textAreaHistorico;
+
+    @FXML
+    private TextArea textAreaAnotacoes;
 
     @FXML
     private TabPane tabelaPrincipal; // Tabs no topo da tela
 
-    @FXML
-    private VBox personagemArea;
-
-    @FXML
-    private HBox personagensBox; // HBox para conter os botões dos personagens
-
-    @FXML
-    private VBox tabContent; // VBox para conter o conteúdo das abas dos personagens
-
-    private String[] tiposDeSer = {"Personagem", "Criatura"};
+    private enum tiposDeSer {Personagem, Ameaça};
 
     // Seleciona se vai ser criado personagem ou criatura
     @FXML
-    private ChoiceBox<String> seletorTipoChoiceBox;
+    private ChoiceBox<tiposDeSer> seletorTipoChoiceBox;
 
     @FXML
     private Label seletorTipoLabel;
 
-        
     // Inputs de texto do criador de personagem
 
     @FXML
@@ -69,25 +65,14 @@ public class PrimaryController implements Initializable {
 
     @FXML @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Personagem JohnParanormal = new Personagem("John Paranormal", Classe.Ocultista);
-        JohnParanormal.setAtributo(Atributo.Intelecto, 20);
-        JohnParanormal.setPericia(Pericia.Ocultismo, 69);
-        JohnParanormal.setPericia(Pericia.Ciências, -10);
-        gerenciador.adicionaSer(JohnParanormal);
-
-        PersonagemArea paranormalController = new PersonagemArea();
-
-        paranormalController.setup(JohnParanormal);
-        
-        this.personagemArea.getChildren().addAll(paranormalController);
-
+        this.gerenciador = new GerenciadorSessao();
         // Criador de persnagem ou criatura
-        seletorTipoChoiceBox.getItems().addAll(tiposDeSer);
+        seletorTipoChoiceBox.getItems().addAll(tiposDeSer.values());
         seletorTipoChoiceBox.setOnAction(this::getTipoDeSer);
-        seletorTipoChoiceBox.setValue(tiposDeSer[0]);
+        seletorTipoChoiceBox.setValue(tiposDeSer.Personagem);
 
         seletorTipoChoiceBox.setOnAction(event -> {
-            if (this.seletorTipoChoiceBox.getValue() == "Criatura") {
+            if (this.seletorTipoChoiceBox.getValue().equals(tiposDeSer.Ameaça)) {
                 this.classePersonagemCriadorComboBox.setVisible(false);
             } else {
                 this.classePersonagemCriadorComboBox.setVisible(true);
@@ -101,72 +86,80 @@ public class PrimaryController implements Initializable {
         }
         this.classePersonagemCriadorComboBox.setItems(FXCollections.observableList(opcoesClasse));
         this.classePersonagemCriadorComboBox.setValue(Classe.Combatente);
-
-        PersonagemAreaMini johnMiniController = new PersonagemAreaMini();
-        johnMiniController.setup(JohnParanormal);
-
-        this.cardMiniFlowPane.getChildren().addAll(johnMiniController);
     }
-   
-
 
     @FXML
     private void adicionaSer() {
         // Cria um ser temporário, utilizando os valores nas caixas de texto, e insere no gerenciador
         // Então cria uma nova tab para o ser
-        final boolean personagemSelecionado = this.seletorTipoChoiceBox.getValue() == "Personagem";
+        final boolean personagemSelecionado = this.seletorTipoChoiceBox.getValue().equals(tiposDeSer.Personagem);
         // TODO: Refatorar isso para usar SerArea<Personagem> ou SerArea<Ameaca>
+        Ser serTemporario;
+
         if (personagemSelecionado) {
-            Personagem personagemTemporario = new Personagem(nomePersonagemCriadorTextField.getText(), classePersonagemCriadorComboBox.getValue());
+            serTemporario = new Personagem(nomePersonagemCriadorTextField.getText(), classePersonagemCriadorComboBox.getValue());
             PersonagemArea personagemTemporarioControler = new PersonagemArea();
             
-            gerenciador.adicionaSer(personagemTemporario);
-            personagemTemporarioControler.setup(personagemTemporario);
+            personagemTemporarioControler.setup((Personagem)serTemporario);
 
-            this.personagemArea.getChildren().addAll(personagemTemporarioControler);
             Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), personagemTemporarioControler);
             tab.setOnSelectionChanged(event -> {
                 personagemTemporarioControler.atualizarTextoRolagens();
             });
             tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
 
-            PersonagemAreaMini tempMiniController = new PersonagemAreaMini();
-            tempMiniController.setup(personagemTemporario);
-            this.cardMiniFlowPane.getChildren().addAll(tempMiniController);
-
         } else {
-            Ameaca ameacaTemporaria = new Ameaca(nomePersonagemCriadorTextField.getText());
+            serTemporario = new Ameaca(nomePersonagemCriadorTextField.getText());
             AmeacaArea ameacaTemporariaArea = new AmeacaArea();
             
-            gerenciador.adicionaSer(ameacaTemporaria);
-            ameacaTemporariaArea.setup(ameacaTemporaria);
+            ameacaTemporariaArea.setup((Ameaca) serTemporario);
             
-            this.personagemArea.getChildren().addAll(ameacaTemporariaArea);
             Tab tab = new Tab(nomePersonagemCriadorTextField.getText(), ameacaTemporariaArea);
             tab.setOnSelectionChanged(event -> {
                 ameacaTemporariaArea.atualizarTextoRolagens();
             });
             tabelaPrincipal.getTabs().add(tabelaPrincipal.getTabs().size() - 1, tab);
-
-
         }
+        
+        SerAreaMini tempMiniController = new SerAreaMini();
+        tempMiniController.setup(serTemporario, event -> {
+            int index = tempMiniController.getIndex();
+            // Remover do gerenciador
+            this.gerenciador.removeSer(index);
+
+            // Remover das visao geral
+            this.cardMiniFlowPane.getChildren().remove(index);
+
+            // Remover das abas (+1 por causa do main)
+            tabelaPrincipal.getTabs().remove(index+1);
+    
+            atualizarIndicesFlowPane();
+        });
+        
+        this.cardMiniFlowPane.getChildren().addAll(tempMiniController);
+        gerenciador.adicionaSer(serTemporario);
+        atualizarIndicesFlowPane();
+    }
 
 
-
-
+    public void atualizarIndicesFlowPane() {
+        for (int index = 0; index < cardMiniFlowPane.getChildren().size(); index++) {
+            SerAreaMini cardMini = (SerAreaMini) cardMiniFlowPane.getChildren().get(index);
+            cardMini.setIndex(index);
+        }
     }
 
     @FXML
-    public void updateFlowPane(){
+    public void updateMainPage(){
         for (Node node : cardMiniFlowPane.getChildren()) {
-            PersonagemAreaMini cardMini = (PersonagemAreaMini) node;
+            SerAreaMini cardMini = (SerAreaMini) node;
             cardMini.atualizaMini();
         }
+        this.textAreaHistorico.setText(Ser.getHistoricoRolagens());
     }
 
-
     public void getTipoDeSer(ActionEvent event){
-        String tipoDeSer = seletorTipoChoiceBox.getValue();
+        String tipoDeSer = seletorTipoChoiceBox.getValue().toString();
         seletorTipoLabel.setText(tipoDeSer);
     }
 
@@ -189,6 +182,11 @@ public class PrimaryController implements Initializable {
         // Lógica a ser executada quando o segundo botão for pressionado
         System.out.println("Segundo botão pressionado!");
         // Adicione aqui o código que deseja executar quando o segundo botão for clicado
+    }
+
+    @FXML
+    private void atualizarAnotacoes() {
+        this.gerenciador.setAnotacoes(textAreaAnotacoes.getText());
     }
 
 }

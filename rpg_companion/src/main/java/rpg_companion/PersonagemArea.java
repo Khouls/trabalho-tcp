@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
 
-import gerenciador.Rolagem;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressBar;
@@ -21,13 +20,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import seres.Atributo;
 import seres.Pericia;
 import seres.Recurso;
@@ -38,8 +32,6 @@ import seres.personagens.Personagem;
 import seres.personagens.Poder;
 
 public class PersonagemArea extends VBox {
-    private static final int ALTURA_CONTAINER = 43;
-
     private Personagem personagem;
 
     @FXML
@@ -82,16 +74,31 @@ public class PersonagemArea extends VBox {
     private TextField campoForça;
 
     @FXML
+    private Button botaoTesteForça;
+
+    @FXML
     private TextField campoAgilidade;
+
+    @FXML
+    private Button botaoTesteAgilidade;
 
     @FXML
     private TextField campoIntelecto;
 
     @FXML
+    private Button botaoTesteIntelecto;
+
+    @FXML
     private TextField campoPresença;
 
     @FXML
+    private Button botaoTestePresença;
+
+    @FXML
     private TextField campoVigor;
+
+    @FXML
+    private Button botaoTesteVigor;
 
     @FXML
     private TextField campoDefesa;
@@ -190,6 +197,7 @@ public class PersonagemArea extends VBox {
         conectarCampoAtributo(this.campoIntelecto, Atributo.Intelecto);
         conectarCampoAtributo(this.campoPresença, Atributo.Presença);
         conectarCampoAtributo(this.campoVigor, Atributo.Vigor);
+        configurarBotoesTestesAtributos();
 
         // Construir a area de pericias
         for (Pericia pericia : this.personagem.getPericias().keySet()) {
@@ -370,5 +378,49 @@ public class PersonagemArea extends VBox {
 
     public void atualizarTextoRolagens() {
         this.textareaRolagens.setText(Ser.getHistoricoRolagens());
+    }
+
+    private ImageView importarIconeBotao(double tamanho) {
+        Image imagemDado = new Image(getClass().getResource("icons/d20.png").toExternalForm());
+        ImageView iconeBotao = new ImageView(imagemDado);
+        iconeBotao.setFitHeight(tamanho);
+        iconeBotao.setPreserveRatio(true);
+
+        return iconeBotao;
+    }
+
+    public void configurarBotoesTestesAtributos() {
+        final double tamanhoIcone = 17.0;
+        
+        this.botaoTesteForça.setGraphic(importarIconeBotao(tamanhoIcone));
+        this.botaoTesteAgilidade.setGraphic(importarIconeBotao(tamanhoIcone));
+        this.botaoTesteIntelecto.setGraphic(importarIconeBotao(tamanhoIcone));
+        this.botaoTestePresença.setGraphic(importarIconeBotao(tamanhoIcone));
+        this.botaoTesteVigor.setGraphic(importarIconeBotao(tamanhoIcone));
+
+        this.botaoTesteForça.setOnMouseClicked(event -> {
+            this.personagem.fazerTeste(Atributo.Força);
+            atualizarTextoRolagens();
+        });
+
+        this.botaoTesteAgilidade.setOnMouseClicked(event -> {
+            this.personagem.fazerTeste(Atributo.Agilidade);
+            atualizarTextoRolagens();
+        });
+
+        this.botaoTesteIntelecto.setOnMouseClicked(event -> {
+            this.personagem.fazerTeste(Atributo.Intelecto);
+            atualizarTextoRolagens();
+        });
+
+        this.botaoTestePresença.setOnMouseClicked(event -> {
+            this.personagem.fazerTeste(Atributo.Presença);
+            atualizarTextoRolagens();
+        });
+
+        this.botaoTesteVigor.setOnMouseClicked(event -> {
+            this.personagem.fazerTeste(Atributo.Vigor);
+            atualizarTextoRolagens();
+        });
     }
 }

@@ -55,6 +55,8 @@ public class Recurso {
         double proporçao = ((double) this.valorAtual) / this.valorMaximo;
         if (proporçao > 1 || this.valorMaximo == 0) {
             return 1;
+        } else if (proporçao < 0) {
+            return 0;
         }
         return proporçao;
     }

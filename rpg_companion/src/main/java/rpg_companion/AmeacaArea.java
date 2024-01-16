@@ -27,7 +27,6 @@ import seres.ameacas.Ameaca;
 import seres.ameacas.Habilidade;
 import seres.personagens.Classe;
 
-
 public class AmeacaArea extends VBox {
 
     private Ameaca ameaca;
@@ -48,16 +47,31 @@ public class AmeacaArea extends VBox {
     private TextField campoForça;
 
     @FXML
+    private Button botaoTesteForça;
+
+    @FXML
     private TextField campoAgilidade;
+
+    @FXML
+    private Button botaoTesteAgilidade;
 
     @FXML
     private TextField campoIntelecto;
 
     @FXML
+    private Button botaoTesteIntelecto;
+
+    @FXML
     private TextField campoPresença;
 
     @FXML
+    private Button botaoTestePresença;
+
+    @FXML
     private TextField campoVigor;
+
+    @FXML
+    private Button botaoTesteVigor;
 
     @FXML
     private TextField campoDefesa;
@@ -146,6 +160,7 @@ public class AmeacaArea extends VBox {
         conectarCampoAtributo(this.campoIntelecto, Atributo.Intelecto);
         conectarCampoAtributo(this.campoPresença, Atributo.Presença);
         conectarCampoAtributo(this.campoVigor, Atributo.Vigor);
+        configurarBotoesTestesAtributos();
 
         // Construir a area de pericias
         for (Pericia pericia : this.ameaca.getPericias().keySet()) {
@@ -201,11 +216,7 @@ public class AmeacaArea extends VBox {
                 System.out.println("Rolagem mal formada: " + textoRolagem);
                 e.printStackTrace();
             }
-
-
         });
-
-
     }
 
     private void conectarSpinnersRecurso(Spinner<Integer> spinnerValorAtual, Spinner<Integer> spinnerValorMaximo, ProgressBar barraRecurso, Recurso recurso) {
@@ -288,5 +299,49 @@ public class AmeacaArea extends VBox {
 
     public void atualizarTextoRolagens() {
         this.textareaRolagens.setText(Ser.getHistoricoRolagens());
+    }
+
+    private ImageView importarIconeBotao(double tamanho) {
+        Image imagemDado = new Image(getClass().getResource("icons/d20.png").toExternalForm());
+        ImageView iconeBotao = new ImageView(imagemDado);
+        iconeBotao.setFitHeight(tamanho);
+        iconeBotao.setPreserveRatio(true);
+
+        return iconeBotao;
+    }
+
+    public void configurarBotoesTestesAtributos() {
+        final double tamanhoIcone = 17.0;
+        
+        this.botaoTesteForça.setGraphic(importarIconeBotao(tamanhoIcone));
+        this.botaoTesteAgilidade.setGraphic(importarIconeBotao(tamanhoIcone));
+        this.botaoTesteIntelecto.setGraphic(importarIconeBotao(tamanhoIcone));
+        this.botaoTestePresença.setGraphic(importarIconeBotao(tamanhoIcone));
+        this.botaoTesteVigor.setGraphic(importarIconeBotao(tamanhoIcone));
+
+        this.botaoTesteForça.setOnMouseClicked(event -> {
+            this.ameaca.fazerTeste(Atributo.Força);
+            atualizarTextoRolagens();
+        });
+
+        this.botaoTesteAgilidade.setOnMouseClicked(event -> {
+            this.ameaca.fazerTeste(Atributo.Agilidade);
+            atualizarTextoRolagens();
+        });
+
+        this.botaoTesteIntelecto.setOnMouseClicked(event -> {
+            this.ameaca.fazerTeste(Atributo.Intelecto);
+            atualizarTextoRolagens();
+        });
+
+        this.botaoTestePresença.setOnMouseClicked(event -> {
+            this.ameaca.fazerTeste(Atributo.Presença);
+            atualizarTextoRolagens();
+        });
+
+        this.botaoTesteVigor.setOnMouseClicked(event -> {
+            this.ameaca.fazerTeste(Atributo.Vigor);
+            atualizarTextoRolagens();
+        });
     }
 }
